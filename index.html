@@ -1,154 +1,134 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="referrer" content="no-referrer">
-  <title>InJoy 營養俱樂部｜教練登入</title>
-  <style>
-    :root {
-      font-family: system-ui, -apple-system, "Noto Sans TC", sans-serif;
-      color: #302621;
-      background: #faf6ef;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; }
-    main { max-width: 620px; margin: 40px auto; padding: 24px; }
-    header { border-top: 5px solid #be4438; padding: 20px 0; }
-    small { color: #9a6a27; letter-spacing: .12em; }
-    h1 { font-size: 26px; margin: 8px 0; }
-    h2 { font-size: 19px; }
-    .card {
-      background: white;
-      border: 1px solid #e8dfd2;
-      border-radius: 16px;
-      padding: 22px;
-      margin: 18px 0;
-      box-shadow: 0 6px 22px #4b352008;
-    }
-    p { line-height: 1.7; }
-    label { display: block; margin: 14px 0 6px; font-size: 14px; }
-    input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d6cabb;
-      border-radius: 8px;
-      font: inherit;
-    }
-    button {
-      background: #a8352e;
-      color: white;
-      border: 0;
-      border-radius: 9px;
-      padding: 12px 18px;
-      font: inherit;
-      cursor: pointer;
-      margin: 6px 6px 6px 0;
-    }
-    button.secondary { background: #eee6db; color: #302621; }
-    button:disabled { opacity: .5; cursor: wait; }
-    .badge {
-      display: inline-block;
-      background: #f3eadb;
-      border-radius: 20px;
-      padding: 5px 12px;
-      margin: 4px 6px 4px 0;
-      font-size: 14px;
-    }
-    .hint { font-size: 14px; color: #6e6256; }
-    #status { white-space: pre-wrap; }
-    #userId { overflow-wrap: anywhere; font-size: 13px; }
-    details summary { cursor: pointer; }
-    iframe { display: none; }
-    footer { font-size: 13px; color: #857668; }
-    @media (max-width: 640px) {
-      main { margin: 0 auto; padding: 18px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>InJoy 營養俱樂部｜教練登入</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;color:#302621;background:#faf6ef}
+*{box-sizing:border-box}
+body{margin:0}
+main{max-width:620px;margin:40px auto;padding:24px}
+header{border-top:5px solid #be4438;padding:20px 0}
+small{color:#9a6a27;letter-spacing:.12em}
+h1{font-size:26px;margin:8px 0}
+h2{font-size:19px}
+.card{background:white;border:1px solid #e8dfd2;border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 6px 22px #4b352008}
+p{line-height:1.7}
+button{background:#a8352e;color:white;border:0;border-radius:9px;padding:12px 18px;font:inherit;cursor:pointer;margin:6px 6px 6px 0}
+button.secondary{background:#eee6db;color:#302621}
+button:disabled{opacity:.5;cursor:wait}
+.badge{display:inline-block;background:#f3eadb;border-radius:20px;padding:5px 12px;margin:4px 6px 4px 0;font-size:14px}
+.hint{font-size:14px;color:#6e6256}
+.wrap{overflow-wrap:anywhere}
+#status,#applyStatus,#reviewStatus{white-space:pre-wrap}
+details summary{cursor:pointer}
+.application{border-top:1px solid #e8dfd2;padding:14px 0}
+.application strong{display:block}
+.application p{margin:6px 0}
+iframe{display:none}
+footer{font-size:13px;color:#857668}
+[hidden]{display:none!important}
+@media(max-width:640px){main{margin:0 auto;padding:18px}}
+</style>
 </head>
 <body>
 <main>
-  <header>
-    <small>INJOY MARATHON</small>
-    <h1>InJoy 營養俱樂部</h1>
-    <p>體重管理馬拉松・教練登入</p>
-  </header>
+<header>
+  <small>INJOY MARATHON</small>
+  <h1>InJoy 營養俱樂部</h1>
+  <p>體重管理馬拉松・教練登入</p>
+</header>
 
-  <section class="card">
-    <h2>使用 LINE 登入</h2>
-    <p class="hint">
-      登入後辨識教練、當屆總監及超級管理者身分。
-      教練資格需要核准；登入成功不會自動取得權限。
-    </p>
-    <button id="login">LINE 登入</button>
-    <p id="status" role="status" aria-live="polite">
-      請先填寫下方的登入連線設定。
-    </p>
-  </section>
+<section class="card">
+  <h2>使用 LINE 登入</h2>
+  <p class="hint">
+    登入後辨識教練、當屆總監及超級管理者身分。
+    首次申請教練資格，需經超級管理者核准。
+  </p>
+  <button id="login">LINE 登入</button>
+  <p id="status" role="status" aria-live="polite">
+    請使用 LINE 帳號登入。
+  </p>
+</section>
 
-  <section class="card" id="account" hidden>
-    <h2 id="displayName"></h2>
-    <div id="roles"></div>
-    <p id="access"></p>
-    <p id="userId"></p>
-    <button id="refresh" class="secondary">重新確認權限</button>
-    <button id="logout" class="secondary">登出</button>
-    <p class="hint">
-      本階段僅提供登入與權限辨識；
-      全體紀錄、表揚選取及圖片輸出尚未接上。
-    </p>
-  </section>
+<section class="card" id="account" hidden>
+  <h2 id="displayName"></h2>
+  <div id="roles"></div>
+  <p id="access"></p>
+  <p id="userId" class="hint wrap"></p>
+  <button id="refresh" class="secondary">重新確認權限</button>
+  <button id="logout" class="secondary">登出</button>
+</section>
 
-  <details class="card" id="settings" open>
-    <summary>登入連線設定</summary>
-    <form id="configForm">
-      <label for="liffId">LIFF ID（建立 LIFF App 後取得）</label>
-      <input id="liffId"
-             placeholder="2012022227-xxxxxxxx"
-             autocomplete="off" required>
+<section class="card" id="applyCard" hidden>
+  <h2>教練資格申請</h2>
+  <p id="applyStatus" role="status" aria-live="polite"></p>
+  <button id="apply" hidden>申請教練資格</button>
+</section>
 
-      <label for="bridgeUrl">Apps Script 橋接網址</label>
-      <input id="bridgeUrl" type="url"
-             placeholder="https://script.google.com/macros/s/…/exec"
-             autocomplete="off" required>
+<section class="card" id="reviewCard" hidden>
+  <h2>教練申請審核</h2>
+  <p class="hint">
+    僅超級管理者可審核。
+    核准後取得教練權限；總監仍須另外指定。
+  </p>
+  <button id="reloadApplications" class="secondary">
+    重新整理待審清單
+  </button>
+  <p id="reviewStatus" role="status" aria-live="polite"></p>
+  <div id="applications"></div>
+  <button id="nextPage" class="secondary" hidden>下一頁</button>
+</section>
 
-      <button type="submit" class="secondary">儲存設定</button>
-    </form>
-    <p class="hint">
-      Login Channel：2012022227<br>
-      Messaging API Channel：1657872266<br>
-      這裡只保存公開連線設定，登入憑證只留在當次頁面記憶體。
-    </p>
-  </details>
+<details class="card">
+  <summary>使用說明</summary>
+  <p class="hint">
+    首次申請：先在已綁定的教練群組輸入「教練登入」，
+    再由本人開啟機器人提供的入口。
+    入口10分鐘內有效，轉傳給他人無法使用。
+  </p>
+  <p class="hint">
+    本階段提供登入、教練申請與審核；
+    全體成績、表揚選取及圖片輸出尚未接上。
+  </p>
+</details>
 
-  <footer>InJoy 營養俱樂部｜登入準備版 1.0.0</footer>
+<footer>InJoy 營養俱樂部｜教練登入 1.1.0</footer>
 </main>
 
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
 'use strict';
 
-// 後续取得設定後再填；不能放入任何Secret或Access Token。
-const DEFAULT_CONFIG = {
+const CONFIG = {
   liffId: '2012022227-AgkXKQoz',
-  bridgeUrl: 'https://script.google.com/macros/s/AKfycbxAeyj5vZEVCdzV7GQWgg7Cf8-jUkJg8_6DzKSvBULQnnyE4Fapra5MyukB9nEaYP85rw/exec'
+  bridgeUrl: 'https://script.google.com/macros/s/AKfycbxAeyj5vZEVCdzV7GQWgg7Cf8-jUkJg8_6DzKSvBULQnnyE4Fapra5MyukB9nEaYP85rw/exec',
+  pageUrl: 'https://scoutdelsf.github.io/injoy-marathon/'
 };
 
 const $ = id => document.getElementById(id);
 
-let config = { ...DEFAULT_CONFIG };
 let sessionToken = '';
+let identity = null;
+let permissions = null;
+let ticket = null;
+let ticketError = '';
+let applicationSent = false;
+let nextOffset = null;
+let reviewBusy = false;
+let initPromise = null;
 let bridge = null;
 let bridgeSource = null;
 let bridgeOrigin = '';
 let bridgeNonce = '';
 let bridgeReady = null;
-let initializedId = '';
 
 const pending = new Map();
 
-function status(message) {
-  $('status').textContent = message;
+function status(text) {
+  $('status').textContent = text;
 }
 
 function randomHex(bytes) {
@@ -158,91 +138,58 @@ function randomHex(bytes) {
   ).join('');
 }
 
-function validConfig(c) {
-  return /^2012022227-[A-Za-z0-9]+$/.test(c.liffId) &&
-    /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/
-      .test(c.bridgeUrl);
-}
-
 function trustedBridgeOrigin(origin) {
   return /^https:\/\/(?:[a-z0-9-]+\.)*googleusercontent\.com$/
-    .test(origin) || origin === 'https://script.google.com';
+    .test(origin) ||
+    origin === 'https://script.google.com';
 }
 
-try {
-  const saved = JSON.parse(
-    localStorage.getItem('injoy.publicLoginConfig') || 'null'
-  );
-  if (saved && validConfig(saved)) config = saved;
-} catch (e) {}
+function readTicket(href) {
+  const url = new URL(href);
+  const sets = [url.searchParams];
+  const state = url.searchParams.get('liff.state');
 
-$('liffId').value = config.liffId;
-$('bridgeUrl').value = config.bridgeUrl;
+  if (state && state.length <= 4000) {
+    try {
+      sets.push(
+        new URL(state, CONFIG.pageUrl).searchParams
+      );
+    } catch (e) {}
+  }
 
-if (validConfig(config)) {
-  status('連線設定已就緒。');
-  $('settings').open = false;
+  for (const p of sets) {
+    if (
+      !p.has('coachTicketId') &&
+      !p.has('coachTicketToken')
+    ) continue;
+
+    const id = p.get('coachTicketId') || '';
+    const token = p.get('coachTicketToken') || '';
+
+    if (
+      !/^[a-f0-9-]{36}$/.test(id) ||
+      !/^[A-Za-z0-9_-]{43}$/.test(token)
+    ) {
+      throw new Error(
+        '教練入口資料不完整，請回群組重新輸入「教練登入」。'
+      );
+    }
+
+    return { id, token };
+  }
+
+  return null;
 }
 
-$('configForm').addEventListener('submit', e => {
-  e.preventDefault();
+function loginRedirect() {
+  const url = new URL(CONFIG.pageUrl);
 
-  const next = {
-    liffId: $('liffId').value.trim(),
-    bridgeUrl: $('bridgeUrl').value.trim()
-  };
-
-  if (!validConfig(next)) {
-    status(
-      '請確認LIFF ID屬於2012022227，' +
-      '橋接網址為Apps Script的 /exec 網址。'
-    );
-    return;
+  if (ticket) {
+    url.searchParams.set('coachTicketId', ticket.id);
+    url.searchParams.set('coachTicketToken', ticket.token);
   }
 
-  if (initializedId && initializedId !== next.liffId) {
-    status('LIFF ID已變更，請儲存後重新整理。');
-  } else {
-    status('設定已儲存，請按LINE登入。');
-  }
-
-  config = next;
-
-  try {
-    localStorage.setItem(
-      'injoy.publicLoginConfig',
-      JSON.stringify(next)
-    );
-  } catch (e) {
-    status('此瀏覽器無法保存設定，本次仍可使用。');
-  }
-
-  resetBridge();
-  $('settings').open = false;
-});
-
-function resetBridge() {
-  if (bridgeReady) {
-    clearTimeout(bridgeReady.timer);
-    bridgeReady.reject(new Error('連線設定已變更。'));
-  }
-
-  sessionToken = '';
-  $('account').hidden = true;
-
-  if (bridge) bridge.remove();
-
-  bridge = null;
-  bridgeSource = null;
-  bridgeOrigin = '';
-  bridgeReady = null;
-
-  for (const p of pending.values()) {
-    clearTimeout(p.timer);
-    p.reject(new Error('連線設定已變更。'));
-  }
-
-  pending.clear();
+  return url.href;
 }
 
 window.addEventListener('message', e => {
@@ -253,11 +200,12 @@ window.addEventListener('message', e => {
   if (
     m.type === 'INJOY_LOGIN_READY' &&
     !bridgeSource &&
+    bridgeReady &&
     trustedBridgeOrigin(e.origin)
   ) {
     bridgeSource = e.source;
     bridgeOrigin = e.origin;
-    bridgeReady?.resolve();
+    bridgeReady.resolve();
     return;
   }
 
@@ -276,9 +224,11 @@ window.addEventListener('message', e => {
   if (m.result?.ok) {
     p.resolve(m.result.data);
   } else {
-    p.reject(new Error(
-      m.result?.error?.message || '登入服務無法完成。'
-    ));
+    const err = new Error(
+      m.result?.error?.message || '服務暫時無法完成。'
+    );
+    err.code = m.result?.error?.code;
+    p.reject(err);
   }
 });
 
@@ -295,22 +245,22 @@ function connectBridge() {
     reject = b;
   });
 
-  bridgeReady = { promise, resolve, reject };
+  const ready = { promise, resolve, reject };
+  bridgeReady = ready;
 
   const timer = setTimeout(() => {
-    reject(new Error(
-      '後端連線逾時，請核對橋接網址、存取設定與' +
-      'INJOY_FRONTEND_ORIGIN。'
-    ));
+    if (bridgeReady !== ready) return;
 
     bridge?.remove();
     bridge = null;
     bridgeReady = null;
     bridgeSource = null;
     bridgeOrigin = '';
-  }, 30000);
 
-  bridgeReady.timer = timer;
+    reject(new Error(
+      '後端連線逾時，請確認目前的Apps Script部署已更新。'
+    ));
+  }, 30000);
 
   promise.then(
     () => clearTimeout(timer),
@@ -320,7 +270,7 @@ function connectBridge() {
   bridge = document.createElement('iframe');
   bridge.title = 'InJoy 登入連線';
 
-  const url = new URL(config.bridgeUrl);
+  const url = new URL(CONFIG.bridgeUrl);
   url.searchParams.set('mode', 'bridge');
   url.searchParams.set('bridgeNonce', bridgeNonce);
 
@@ -338,7 +288,7 @@ async function callBackend(action, payload) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       pending.delete(requestId);
-      reject(new Error('登入服務回應逾時，請稍後重試。'));
+      reject(new Error('服務回應逾時，請稍後重試。'));
     }, 30000);
 
     pending.set(requestId, { resolve, reject, timer });
@@ -350,53 +300,131 @@ async function callBackend(action, payload) {
       requestId,
       nonce: bridgeNonce
     }, bridgeOrigin);
+
+  }).then(data => {
+    if (
+      action !== 'login' &&
+      action !== 'logout' &&
+      payload.sessionToken !== sessionToken
+    ) {
+      const err = new Error(
+        '登入狀態已改變，請重新登入。'
+      );
+      err.code = 'SESSION_REQUIRED';
+      throw err;
+    }
+
+    return data;
   });
 }
 
-function render(data) {
-  $('account').hidden = false;
-  $('displayName').textContent = data.identity.displayName;
-  $('userId').textContent =
-    'LINE userId：' + data.identity.userId;
+function hideAccount() {
+  sessionToken = '';
+  identity = null;
+  permissions = null;
+  nextOffset = null;
 
-  const p = data.permissions;
+  for (const id of [
+    'account',
+    'applyCard',
+    'reviewCard'
+  ]) {
+    $(id).hidden = true;
+  }
+
+  $('applications').replaceChildren();
+}
+
+function handleError(err, target) {
+  if ([
+    'SESSION_REQUIRED',
+    'SESSION_EXPIRED'
+  ].includes(err.code)) {
+    hideAccount();
+    status('登入已過期，請重新登入。');
+  } else if (target) {
+    $(target).textContent =
+      err.message || '操作未完成。';
+  } else {
+    status(err.message || '操作未完成。');
+  }
+}
+
+function render(data) {
+  identity = data.identity;
+  permissions = data.permissions;
+
+  $('account').hidden = false;
+  $('displayName').textContent = identity.displayName;
+  $('userId').textContent =
+    'LINE userId：' + identity.userId;
+
   $('roles').replaceChildren();
 
   const roles = [];
 
-  if (p.isSuperAdmin) roles.push('超級管理者');
-  if (p.isCoach) roles.push('已核准教練');
-  if (p.isCurrentDirector) roles.push('當屆總監');
-  if (!roles.length) roles.push('尚無教練權限');
-
-  for (const name of roles) {
-    const badge = document.createElement('span');
-    badge.className = 'badge';
-    badge.textContent = name;
-    $('roles').appendChild(badge);
+  if (permissions.isSuperAdmin) {
+    roles.push('超級管理者');
+  }
+  if (permissions.isCoach) {
+    roles.push('已核准教練');
+  }
+  if (permissions.isCurrentDirector) {
+    roles.push('當屆總監');
+  }
+  if (!roles.length) {
+    roles.push('尚無教練權限');
   }
 
-  $('access').textContent = p.canPrepareExport
-    ? '已辨識當屆總監；後續可接上表揚選取與輸出。'
-    : p.canReadAll
+  for (const text of roles) {
+    const node = document.createElement('span');
+    node.className = 'badge';
+    node.textContent = text;
+    $('roles').appendChild(node);
+  }
+
+  $('access').textContent = permissions.canPrepareExport
+    ? '已辨識當屆總監資格。'
+    : permissions.canReadAll
       ? '已辨識讀取全體紀錄的資格；正式輸出限當屆總監。'
-      : '請等待教練群組登入入口與資格核准流程接線。';
+      : '尚未取得教練權限。';
+
+  $('applyCard').hidden = false;
+  $('apply').hidden = true;
+
+  if (permissions.isCoach) {
+    $('applyStatus').textContent = '教練資格已核准。';
+
+  } else if (applicationSent) {
+    $('applyStatus').textContent =
+      '申請已送出，請等候超級管理者核准。' +
+      '核准後按「重新確認權限」。';
+
+  } else if (ticketError) {
+    $('applyStatus').textContent = ticketError;
+
+  } else if (ticket) {
+    $('applyStatus').textContent =
+      '已取得群組入口。' +
+      '請確認目前登入的是發出指令的本人，再按下方按鈕。';
+    $('apply').hidden = false;
+
+  } else {
+    $('applyStatus').textContent =
+      '請回已綁定的教練群組輸入「教練登入」，' +
+      '再由本人開啟機器人的入口。';
+  }
+
+  $('reviewCard').hidden = !permissions.isSuperAdmin;
+
+  if (!permissions.isSuperAdmin) {
+    $('applications').replaceChildren();
+  }
 
   status('登入成功，權限已由後端確認。');
 }
 
 async function login() {
-  if (!validConfig(config)) {
-    status('請先填寫LIFF ID與橋接網址。');
-    $('settings').open = true;
-    return;
-  }
-
-  if (initializedId && initializedId !== config.liffId) {
-    status('LIFF ID已變更，請重新整理後登入。');
-    return;
-  }
-
   if (!window.liff) {
     status('LINE SDK未載入，請確認網路後重新整理。');
     return;
@@ -407,17 +435,28 @@ async function login() {
   try {
     status('正在初始化LINE登入…');
 
-    if (initializedId !== config.liffId) {
-      await liff.init({ liffId: config.liffId });
-      initializedId = config.liffId;
+    if (!initPromise) {
+      initPromise = liff.init({
+        liffId: CONFIG.liffId
+      }).catch(err => {
+        initPromise = null;
+        throw err;
+      });
+    }
+
+    await initPromise;
+
+    // 初始化完成後才讀取或修改LIFF網址參數。
+    if (!ticket) {
+      try {
+        ticket = readTicket(location.href);
+      } catch (err) {
+        ticketError = err.message;
+      }
     }
 
     if (!liff.isLoggedIn()) {
-      const redirectUrl = new URL(location.href);
-      redirectUrl.search = '';
-      redirectUrl.hash = '';
-
-      liff.login({ redirectUri: redirectUrl.href });
+      liff.login({ redirectUri: loginRedirect() });
       return;
     }
 
@@ -425,8 +464,13 @@ async function login() {
 
     if (!idToken) {
       throw new Error(
-        '沒有取得ID token，請確認LIFF App已啟用openid與profile。'
+        '沒有取得ID token，請確認LIFF已啟用openid與profile。'
       );
+    }
+
+    // 票據留在記憶體；登入完成後清理網址參數。
+    if (location.search || location.hash) {
+      history.replaceState(null, '', CONFIG.pageUrl);
     }
 
     status('正在驗證LINE身分…');
@@ -434,53 +478,227 @@ async function login() {
     const data = await callBackend('login', { idToken });
     sessionToken = data.sessionToken;
     render(data);
-  } catch (e) {
-    sessionToken = '';
-    $('account').hidden = true;
-    status(e.message || '登入未完成。');
+
+    if (permissions.isSuperAdmin) {
+      await loadApplications(0);
+    }
+  } catch (err) {
+    hideAccount();
+    handleError(err);
   } finally {
     $('login').disabled = false;
   }
 }
 
+async function refreshPermissions() {
+  if (!sessionToken) {
+    status('請先登入。');
+    return;
+  }
+
+  const data = await callBackend('whoami', {
+    sessionToken
+  });
+
+  render(data);
+}
+
+async function applyCoach() {
+  if (!sessionToken || !ticket) {
+    $('applyStatus').textContent =
+      '請從群組取得新的登入入口。';
+    return;
+  }
+
+  $('apply').disabled = true;
+
+  try {
+    const data = await callBackend('coachApply', {
+      sessionToken,
+      ticketId: ticket.id,
+      ticketToken: ticket.token
+    });
+
+    applicationSent = data.state === 'pending';
+    ticket = null;
+
+    await refreshPermissions();
+
+    if (permissions.isSuperAdmin) {
+      await loadApplications(0);
+    }
+  } catch (err) {
+    handleError(err, 'applyStatus');
+  } finally {
+    $('apply').disabled = false;
+  }
+}
+
+function setReviewBusy(value) {
+  reviewBusy = value;
+  $('reloadApplications').disabled = value;
+  $('nextPage').disabled = value;
+
+  for (const button of
+    $('applications').querySelectorAll('button')) {
+    button.disabled = value;
+  }
+}
+
+async function loadApplications(offset = 0) {
+  if (
+    !sessionToken ||
+    !permissions?.isSuperAdmin
+  ) return;
+
+  setReviewBusy(true);
+  $('reviewStatus').textContent = '正在讀取待審申請…';
+
+  try {
+    const data = await callBackend(
+      'coachApplications',
+      { sessionToken, offset }
+    );
+
+    $('applications').replaceChildren();
+
+    nextOffset = data.nextOffset;
+    $('nextPage').hidden = nextOffset === null;
+
+    $('reviewStatus').textContent = data.total === 0
+      ? '目前沒有待審申請。'
+      : `待審共 ${data.total} 人，本頁顯示 ${data.items.length} 人。`;
+
+    for (const item of data.items) {
+      const row = document.createElement('div');
+      row.className = 'application';
+
+      const name = document.createElement('strong');
+      name.textContent = item.displayName;
+      row.appendChild(name);
+
+      const user = document.createElement('p');
+      user.className = 'hint wrap';
+      user.textContent = 'LINE userId：' + item.lineUserId;
+      row.appendChild(user);
+
+      const time = document.createElement('p');
+      time.className = 'hint';
+      time.textContent = '申請時間：' + item.requestedAt;
+      row.appendChild(time);
+
+      for (const [decision, label] of [
+        ['approve', '核准'],
+        ['reject', '拒絕']
+      ]) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = label;
+
+        if (decision === 'reject') {
+          button.className = 'secondary';
+        }
+
+        button.addEventListener(
+          'click',
+          () => reviewApplication(item, decision)
+        );
+
+        row.appendChild(button);
+      }
+
+      $('applications').appendChild(row);
+    }
+  } catch (err) {
+    handleError(err, 'reviewStatus');
+  } finally {
+    setReviewBusy(false);
+  }
+}
+
+async function reviewApplication(item, decision) {
+  if (
+    reviewBusy ||
+    !sessionToken ||
+    !permissions?.isSuperAdmin
+  ) return;
+
+  setReviewBusy(true);
+  $('reviewStatus').textContent = '正在處理申請…';
+
+  try {
+    await callBackend('coachReview', {
+      sessionToken,
+      applicationId: item.applicationId,
+      decision,
+      expectedRevision: item.revision
+    });
+
+    if (item.lineUserId === identity.userId) {
+      await refreshPermissions();
+    }
+
+    await loadApplications(0);
+  } catch (err) {
+    handleError(err, 'reviewStatus');
+  } finally {
+    setReviewBusy(false);
+  }
+}
+
 $('login').addEventListener('click', login);
+$('apply').addEventListener('click', applyCoach);
 
 $('refresh').addEventListener('click', async () => {
+  $('refresh').disabled = true;
+
   try {
-    if (!sessionToken) throw new Error('請先登入。');
-    render(await callBackend('whoami', { sessionToken }));
-  } catch (e) {
-    sessionToken = '';
-    $('account').hidden = true;
-    status(e.message);
+    await refreshPermissions();
+  } catch (err) {
+    handleError(err);
+  } finally {
+    $('refresh').disabled = false;
+  }
+});
+
+$('reloadApplications').addEventListener(
+  'click',
+  () => loadApplications(0)
+);
+
+$('nextPage').addEventListener('click', () => {
+  if (nextOffset !== null) {
+    loadApplications(nextOffset);
   }
 });
 
 $('logout').addEventListener('click', async () => {
   const token = sessionToken;
-  sessionToken = '';
-  $('account').hidden = true;
+
+  hideAccount();
+  ticket = null;
+  ticketError = '';
+  applicationSent = false;
 
   try {
     if (token) {
-      await callBackend('logout', { sessionToken: token });
+      await callBackend('logout', {
+        sessionToken: token
+      });
     }
-  } catch (e) {}
+  } catch (err) {}
 
-  if (window.liff && liff.isLoggedIn()) liff.logout();
-  status('已登出。');
+  if (window.liff && liff.isLoggedIn()) {
+    liff.logout();
+  }
+
+  status(
+    '已登出。請重新登入，或回群組取得新的教練入口。'
+  );
 });
 
-// 回呼參數保留至liff.init處理完成。
-if (
-  validConfig(config) &&
-  (
-    location.search.includes('liff') ||
-    location.search.includes('code=')
-  )
-) {
-  login();
-}
+// 初始化以完成LIFF跳轉，權限仍由後端判定。
+login();
 </script>
 </body>
 </html>
