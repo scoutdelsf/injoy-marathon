@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>InJoy 營養俱樂部｜教練登入</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, "Noto Sans TC", sans-serif;
+      color: #302621;
+      background: #faf6ef;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 620px; margin: 40px auto; padding: 24px; }
+    header { border-top: 5px solid #be4438; padding: 20px 0; }
+    small { color: #9a6a27; letter-spacing: .12em; }
+    h1 { font-size: 26px; margin: 8px 0; }
+    h2 { font-size: 19px; }
+    .card {
+      background: white;
+      border: 1px solid #e8dfd2;
+      border-radius: 16px;
+      padding: 22px;
+      margin: 18px 0;
+      box-shadow: 0 6px 22px #4b352008;
+    }
+    p { line-height: 1.7; }
+    label { display: block; margin: 14px 0 6px; font-size: 14px; }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d6cabb;
+      border-radius: 8px;
+      font: inherit;
+    }
+    button {
+      background: #a8352e;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 18px;
+      font: inherit;
+      cursor: pointer;
+      margin: 6px 6px 6px 0;
+    }
+    button.secondary { background: #eee6db; color: #302621; }
+    button:disabled { opacity: .5; cursor: wait; }
+    .badge {
+      display: inline-block;
+      background: #f3eadb;
+      border-radius: 20px;
+      padding: 5px 12px;
+      margin: 4px 6px 4px 0;
+      font-size: 14px;
+    }
+    .hint { font-size: 14px; color: #6e6256; }
+    #status { white-space: pre-wrap; }
+    #userId { overflow-wrap: anywhere; font-size: 13px; }
+    details summary { cursor: pointer; }
+    iframe { display: none; }
+    footer { font-size: 13px; color: #857668; }
+    @media (max-width: 640px) {
+      main { margin: 0 auto; padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <small>INJOY MARATHON</small>
+    <h1>InJoy 營養俱樂部</h1>
+    <p>體重管理馬拉松・教練登入</p>
+  </header>
+
+  <section class="card">
+    <h2>使用 LINE 登入</h2>
+    <p class="hint">
+      登入後辨識教練、當屆總監及超級管理者身分。
+      教練資格需要核准；登入成功不會自動取得權限。
+    </p>
+    <button id="login">LINE 登入</button>
+    <p id="status" role="status" aria-live="polite">
+      請先填寫下方的登入連線設定。
+    </p>
+  </section>
+
+  <section class="card" id="account" hidden>
+    <h2 id="displayName"></h2>
+    <div id="roles"></div>
+    <p id="access"></p>
+    <p id="userId"></p>
+    <button id="refresh" class="secondary">重新確認權限</button>
+    <button id="logout" class="secondary">登出</button>
+    <p class="hint">
+      本階段僅提供登入與權限辨識；
+      全體紀錄、表揚選取及圖片輸出尚未接上。
+    </p>
+  </section>
+
+  <details class="card" id="settings" open>
+    <summary>登入連線設定</summary>
+    <form id="configForm">
+      <label for="liffId">LIFF ID（建立 LIFF App 後取得）</label>
+      <input id="liffId"
+             placeholder="2012022227-xxxxxxxx"
+             autocomplete="off" required>
+
+      <label for="bridgeUrl">Apps Script 橋接網址</label>
+      <input id="bridgeUrl" type="url"
+             placeholder="https://script.google.com/macros/s/…/exec"
+             autocomplete="off" required>
+
+      <button type="submit" class="secondary">儲存設定</button>
+    </form>
+    <p class="hint">
+      Login Channel：2012022227<br>
+      Messaging API Channel：1657872266<br>
+      這裡只保存公開連線設定，登入憑證只留在當次頁面記憶體。
+    </p>
+  </details>
+
+  <footer>InJoy 營養俱樂部｜登入準備版 1.0.0</footer>
+</main>
+
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+'use strict';
+
+// 後续取得設定後再填；不能放入任何Secret或Access Token。
+const DEFAULT_CONFIG = {
+  liffId: '',
+  bridgeUrl: ''
+};
+
+const $ = id => document.getElementById(id);
+
+let config = { ...DEFAULT_CONFIG };
+let sessionToken = '';
+let bridge = null;
+let bridgeSource = null;
+let bridgeOrigin = '';
+let bridgeNonce = '';
+let bridgeReady = null;
+let initializedId = '';
+
+const pending = new Map();
+
+function status(message) {
+  $('status').textContent = message;
+}
+
+function randomHex(bytes) {
+  return Array.from(
+    crypto.getRandomValues(new Uint8Array(bytes)),
+    x => x.toString(16).padStart(2, '0')
+  ).join('');
+}
+
+function validConfig(c) {
+  return /^2012022227-[A-Za-z0-9]+$/.test(c.liffId) &&
+    /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/
+      .test(c.bridgeUrl);
+}
+
+function trustedBridgeOrigin(origin) {
+  return /^https:\/\/(?:[a-z0-9-]+\.)*googleusercontent\.com$/
+    .test(origin) || origin === 'https://script.google.com';
+}
+
+try {
+  const saved = JSON.parse(
+    localStorage.getItem('injoy.publicLoginConfig') || 'null'
+  );
+  if (saved && validConfig(saved)) config = saved;
+} catch (e) {}
+
+$('liffId').value = config.liffId;
+$('bridgeUrl').value = config.bridgeUrl;
+
+if (validConfig(config)) {
+  status('連線設定已就緒。');
+  $('settings').open = false;
+}
+
+$('configForm').addEventListener('submit', e => {
+  e.preventDefault();
+
+  const next = {
+    liffId: $('liffId').value.trim(),
+    bridgeUrl: $('bridgeUrl').value.trim()
+  };
+
+  if (!validConfig(next)) {
+    status(
+      '請確認LIFF ID屬於2012022227，' +
+      '橋接網址為Apps Script的 /exec 網址。'
+    );
+    return;
+  }
+
+  if (initializedId && initializedId !== next.liffId) {
+    status('LIFF ID已變更，請儲存後重新整理。');
+  } else {
+    status('設定已儲存，請按LINE登入。');
+  }
+
+  config = next;
+
+  try {
+    localStorage.setItem(
+      'injoy.publicLoginConfig',
+      JSON.stringify(next)
+    );
+  } catch (e) {
+    status('此瀏覽器無法保存設定，本次仍可使用。');
+  }
+
+  resetBridge();
+  $('settings').open = false;
+});
+
+function resetBridge() {
+  if (bridgeReady) {
+    clearTimeout(bridgeReady.timer);
+    bridgeReady.reject(new Error('連線設定已變更。'));
+  }
+
+  sessionToken = '';
+  $('account').hidden = true;
+
+  if (bridge) bridge.remove();
+
+  bridge = null;
+  bridgeSource = null;
+  bridgeOrigin = '';
+  bridgeReady = null;
+
+  for (const p of pending.values()) {
+    clearTimeout(p.timer);
+    p.reject(new Error('連線設定已變更。'));
+  }
+
+  pending.clear();
+}
+
+window.addEventListener('message', e => {
+  const m = e.data;
+
+  if (!m || m.nonce !== bridgeNonce) return;
+
+  if (
+    m.type === 'INJOY_LOGIN_READY' &&
+    !bridgeSource &&
+    trustedBridgeOrigin(e.origin)
+  ) {
+    bridgeSource = e.source;
+    bridgeOrigin = e.origin;
+    bridgeReady?.resolve();
+    return;
+  }
+
+  if (
+    e.source !== bridgeSource ||
+    e.origin !== bridgeOrigin ||
+    m.type !== 'INJOY_LOGIN_RESPONSE'
+  ) return;
+
+  const p = pending.get(m.requestId);
+  if (!p) return;
+
+  clearTimeout(p.timer);
+  pending.delete(m.requestId);
+
+  if (m.result?.ok) {
+    p.resolve(m.result.data);
+  } else {
+    p.reject(new Error(
+      m.result?.error?.message || '登入服務無法完成。'
+    ));
+  }
+});
+
+function connectBridge() {
+  if (bridgeReady) return bridgeReady.promise;
+
+  bridgeNonce = randomHex(32);
+
+  let resolve;
+  let reject;
+
+  const promise = new Promise((a, b) => {
+    resolve = a;
+    reject = b;
+  });
+
+  bridgeReady = { promise, resolve, reject };
+
+  const timer = setTimeout(() => {
+    reject(new Error(
+      '後端連線逾時，請核對橋接網址、存取設定與' +
+      'INJOY_FRONTEND_ORIGIN。'
+    ));
+
+    bridge?.remove();
+    bridge = null;
+    bridgeReady = null;
+    bridgeSource = null;
+    bridgeOrigin = '';
+  }, 30000);
+
+  bridgeReady.timer = timer;
+
+  promise.then(
+    () => clearTimeout(timer),
+    () => clearTimeout(timer)
+  );
+
+  bridge = document.createElement('iframe');
+  bridge.title = 'InJoy 登入連線';
+
+  const url = new URL(config.bridgeUrl);
+  url.searchParams.set('mode', 'bridge');
+  url.searchParams.set('bridgeNonce', bridgeNonce);
+
+  bridge.src = url.href;
+  document.body.appendChild(bridge);
+
+  return promise;
+}
+
+async function callBackend(action, payload) {
+  await connectBridge();
+
+  const requestId = randomHex(16);
+
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      pending.delete(requestId);
+      reject(new Error('登入服務回應逾時，請稍後重試。'));
+    }, 30000);
+
+    pending.set(requestId, { resolve, reject, timer });
+
+    bridgeSource.postMessage({
+      ...payload,
+      type: 'INJOY_LOGIN_REQUEST',
+      action,
+      requestId,
+      nonce: bridgeNonce
+    }, bridgeOrigin);
+  });
+}
+
+function render(data) {
+  $('account').hidden = false;
+  $('displayName').textContent = data.identity.displayName;
+  $('userId').textContent =
+    'LINE userId：' + data.identity.userId;
+
+  const p = data.permissions;
+  $('roles').replaceChildren();
+
+  const roles = [];
+
+  if (p.isSuperAdmin) roles.push('超級管理者');
+  if (p.isCoach) roles.push('已核准教練');
+  if (p.isCurrentDirector) roles.push('當屆總監');
+  if (!roles.length) roles.push('尚無教練權限');
+
+  for (const name of roles) {
+    const badge = document.createElement('span');
+    badge.className = 'badge';
+    badge.textContent = name;
+    $('roles').appendChild(badge);
+  }
+
+  $('access').textContent = p.canPrepareExport
+    ? '已辨識當屆總監；後續可接上表揚選取與輸出。'
+    : p.canReadAll
+      ? '已辨識讀取全體紀錄的資格；正式輸出限當屆總監。'
+      : '請等待教練群組登入入口與資格核准流程接線。';
+
+  status('登入成功，權限已由後端確認。');
+}
+
+async function login() {
+  if (!validConfig(config)) {
+    status('請先填寫LIFF ID與橋接網址。');
+    $('settings').open = true;
+    return;
+  }
+
+  if (initializedId && initializedId !== config.liffId) {
+    status('LIFF ID已變更，請重新整理後登入。');
+    return;
+  }
+
+  if (!window.liff) {
+    status('LINE SDK未載入，請確認網路後重新整理。');
+    return;
+  }
+
+  $('login').disabled = true;
+
+  try {
+    status('正在初始化LINE登入…');
+
+    if (initializedId !== config.liffId) {
+      await liff.init({ liffId: config.liffId });
+      initializedId = config.liffId;
+    }
+
+    if (!liff.isLoggedIn()) {
+      const redirectUrl = new URL(location.href);
+      redirectUrl.search = '';
+      redirectUrl.hash = '';
+
+      liff.login({ redirectUri: redirectUrl.href });
+      return;
+    }
+
+    const idToken = liff.getIDToken();
+
+    if (!idToken) {
+      throw new Error(
+        '沒有取得ID token，請確認LIFF App已啟用openid與profile。'
+      );
+    }
+
+    status('正在驗證LINE身分…');
+
+    const data = await callBackend('login', { idToken });
+    sessionToken = data.sessionToken;
+    render(data);
+  } catch (e) {
+    sessionToken = '';
+    $('account').hidden = true;
+    status(e.message || '登入未完成。');
+  } finally {
+    $('login').disabled = false;
+  }
+}
+
+$('login').addEventListener('click', login);
+
+$('refresh').addEventListener('click', async () => {
+  try {
+    if (!sessionToken) throw new Error('請先登入。');
+    render(await callBackend('whoami', { sessionToken }));
+  } catch (e) {
+    sessionToken = '';
+    $('account').hidden = true;
+    status(e.message);
+  }
+});
+
+$('logout').addEventListener('click', async () => {
+  const token = sessionToken;
+  sessionToken = '';
+  $('account').hidden = true;
+
+  try {
+    if (token) {
+      await callBackend('logout', { sessionToken: token });
+    }
+  } catch (e) {}
+
+  if (window.liff && liff.isLoggedIn()) liff.logout();
+  status('已登出。');
+});
+
+// 回呼參數保留至liff.init處理完成。
+if (
+  validConfig(config) &&
+  (
+    location.search.includes('liff') ||
+    location.search.includes('code=')
+  )
+) {
+  login();
+}
+</script>
+</body>
+</html>
