@@ -14,11 +14,13 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 @media(max-width:640px){main{padding:10px}#accountArea{padding:9px}.account-grid{gap:8px}.account-grid>.card{flex-basis:calc((100% - 8px)/2);min-width:165px;padding:10px}.account-grid #displayName{font-size:14px}.account-grid button{font-size:12px;padding:7px 8px}h1{font-size:20px}}
 
 .photo-tools{margin-top:6px}.photo-tools button{font-size:12px;padding:6px 8px}.photo-thumb{display:block;width:52px;height:52px;border-radius:8px;object-fit:cover;margin-top:5px}.crop-stage{display:block;width:min(100%,360px);aspect-ratio:1;margin:12px auto;background:#eee;border-radius:12px;touch-action:none;cursor:move}.crop-controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.crop-controls button{padding:8px 12px}.photo-note{font-size:13px;color:#865a24}#cropDialog{max-width:500px}#cropZoom{padding:8px 0}#photoFile{margin:6px 0}
+.timeline-sheet{position:relative;overflow:auto;max-height:68vh;border:1px solid #dfd1c1;border-radius:18px;background:#f0e8dd;scrollbar-width:thin;overscroll-behavior-x:contain;cursor:grab;scroll-padding-left:var(--left)}.timeline-sheet.dragging{cursor:grabbing;user-select:none}.timeline-sheet table{border-collapse:separate;border-spacing:0;width:max-content;table-layout:fixed}.timeline-sheet th,.timeline-sheet td{padding:6px;width:var(--day);min-width:var(--day);max-width:var(--day)}.timeline-sheet thead th{position:sticky;top:0;background:#f0e8dd;z-index:3;height:85px}.timeline-sheet .timeline-person{position:sticky;left:0;width:var(--left);min-width:var(--left);max-width:var(--left);z-index:2;background:#f0e8dd;box-shadow:5px 0 9px -7px #4c2d16}.timeline-sheet thead .timeline-person{z-index:5}.corner{background:#544134;color:white;border-radius:12px;padding:13px;text-align:left;font-size:16px;min-height:70px}.corner small{display:block;font-weight:400;font-size:12px;margin-top:5px;color:#e7d9cc}.date-head{border-radius:12px;padding:9px;background:#fff9ee;border:1px solid #e1d3c1;text-align:left;min-height:70px}.date-head strong{display:block;font-size:15px}.date-head small{font-weight:400;font-size:12px;color:#7a695c;display:block;margin-top:3px}.timeline-today .date-head{border-color:#b94739;background:#fff0e5}.timeline-today-badge{font-size:10px;background:#ad3d32;color:white;border-radius:10px;padding:1px 6px;margin-left:6px}.timeline-person-body{height:var(--row);padding:9px;background:#fffcf6;border:1px solid #e0d4c6;border-radius:13px;display:flex;align-items:center;gap:9px;text-align:left;font-weight:400}.avatar{flex:none;width:53px;height:53px;background:#ebdfd0;border-radius:11px;display:grid;place-items:center;font-size:21px;color:#8d7763;border:1px dashed #cdbba5}.timeline-person-info{min-width:0;flex:1}.timeline-person-info label{display:block;font-size:10px;color:#8a7766}.timeline-person-info input{width:100%;border:0;border-bottom:1px solid #d9c7b2;border-radius:0;background:transparent;padding:4px 0;font-weight:700;font-size:14px;color:#352b26}.goal{font-size:11px;color:#806f61;margin:5px 0}.slot{font-size:10px;color:#a48d76}.bubble{height:var(--row);padding:10px 12px;background:#fff;border:1px solid #e1d5c8;border-radius:15px;box-shadow:0 2px 6px #54361a05}.bubble:focus-within{border-color:#bc6c48;box-shadow:0 0 0 2px #b7693720}.timeline-today .bubble{background:#fffdf8}.timeline-future .date-head{background:#f6f2eb}.field{display:flex;align-items:center;gap:8px;margin-bottom:6px}.field label{font-size:11px;color:#8b7765;min-width:26px}.field input{width:100%;min-width:0;border:1px solid #e0d2c3;border-radius:7px;padding:6px 7px;font-size:17px;font-weight:650;background:#fffdfa;color:#3e2e23}.field input::placeholder{font-weight:400;color:#ac9780;font-size:14px}.field span{font-size:11px;color:#8b7765;min-width:16px}.source{font-size:10px;line-height:1.3;color:#9a866f;min-height:14px}.source.explicit{color:#416b50}
+.timeline-sheet{--left:180px;--day:205px;--row:190px;margin:10px 0}.timeline-sheet td:first-child{width:var(--left)}.timeline-sheet td{border:0}.timeline-sheet .bubble{height:var(--row)}.timeline-sheet .timeline-person{vertical-align:top}.timeline-sheet .timeline-person>label{font-size:11px}.timeline-sheet .photo-tools{display:flex;align-items:center;flex-wrap:wrap}.timeline-sheet .photo-tools button{font-size:10px;padding:5px}.timeline-sheet .photo-thumb{width:45px;height:45px;margin-right:5px}.timeline-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.timeline-tools strong{font-size:13px;margin-left:auto}.timeline-sheet .field input{min-width:0}.timeline-sheet .field label{margin:0}.timeline-sheet .source{white-space:normal}.timeline-sheet .bubble{display:flex;flex-direction:column;justify-content:center}.timeline-sheet .entry-goal{font-size:10px}.timeline-sheet .timeline-person input{font-size:13px;padding:6px}.timeline-sheet button{margin:3px;font-size:10px}.timeline-sheet .corner{color:#fff}.timeline-sheet .date-head{cursor:pointer}#measurementPhase,#measuredDate{display:none}.filters>div:has(#measurementPhase),.filters>div:has(#measuredDate){display:none}.filters{grid-template-columns:1fr}@media(max-width:640px){.timeline-sheet{--left:125px;--day:173px;--row:213px}.timeline-sheet .timeline-person{padding:5px}.timeline-tools strong{width:100%}.timeline-sheet .timeline-person label{font-size:10px}}
 </style>
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.4.2｜更新：2026/10/15 19:05（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.5.0｜更新：2026/10/15 19:25（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
 <div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
 <div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
@@ -31,12 +33,12 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 <div class="filters"><div><label for="teamSelect">當屆小隊</label><select id="teamSelect" disabled><option value="">請先登入</option></select></div><div><label for="measuredDate">測量日期</label><input id="measuredDate" type="date"></div><div><label for="measurementPhase">量測階段</label><select id="measurementPhase"><option value="START">起始量測</option><option value="DAILY" selected>每日量測</option><option value="FINISH">決賽量測</option></select></div></div>
 <button id="reloadTeams" type="button" class="secondary">重新讀取小隊</button><button id="reloadPage" type="button" class="secondary" disabled>重新讀取已存資料</button>
 <p id="teamStatus" role="status" aria-live="polite"></p><p id="calendarStatus" class="hint"></p>
-<div id="entryPanel" hidden><p class="photo-note">圖卡姓名與照片試用：修改只保留在目前頁面，尚未儲存；重新整理或登出後會清除。成績「確認送出」不會儲存姓名或照片。</p><p class="hint">體重單位為公斤；體脂率可留空。空白體重不會刪除既有紀錄。</p><div class="table-scroll"><table><thead><tr><th scope="col">選手</th><th scope="col">體重 kg</th><th scope="col">體脂率 %</th></tr></thead><tbody id="measurementRows"></tbody></table></div><p id="draftStatus" class="hint" role="status" aria-live="polite"></p><div class="sticky-actions"><button id="submitMeasurements" type="button" disabled>確認送出</button><button id="previewGrid" type="button" class="secondary" disabled>預覽九宮格</button><p id="saveStatus" role="status" aria-live="polite"></p></div></div>
+<div id="entryPanel" hidden><p class="photo-note">圖卡姓名與照片試用：修改只保留在目前頁面，尚未儲存；重新整理或登出後會清除。成績「確認送出」不會儲存姓名或照片。</p><p class="hint">體重單位為公斤；體脂率可留空。空白體重不會刪除既有紀錄。</p><div id="timelineTools" class="timeline-tools" hidden><button id="timelineStart" type="button" class="secondary">前測</button><button id="timelinePrev" type="button" class="secondary">←</button><button id="timelineToday" type="button" class="secondary">今天</button><button id="timelineNext" type="button" class="secondary">→</button><strong id="timelineLabel" aria-live="polite"></strong></div><div id="measurementScroll" class="table-scroll" tabindex="0" role="region" aria-label="左側選手固定，右側日期可左右滑動"><table id="measurementTable"><thead id="measurementHead"><tr><th scope="col">選手</th><th scope="col">體重 kg</th><th scope="col">體脂率 %</th></tr></thead><tbody id="measurementRows"></tbody></table></div><p id="draftStatus" class="hint" role="status" aria-live="polite"></p><div class="sticky-actions"><button id="submitMeasurements" type="button" disabled>確認送出</button><button id="previewGrid" type="button" class="secondary" disabled>預覽九宮格</button><p id="saveStatus" role="status" aria-live="polite"></p></div></div>
 </section>
 <section class="area card" id="reviewCard" hidden aria-labelledby="reviewTitle"><h2 id="reviewTitle">教練申請審核</h2><p class="hint">僅超級管理者可審核；總監另行指定。</p><button id="reloadApplications" type="button" class="secondary">重新整理待審清單</button><p id="reviewStatus" role="status" aria-live="polite"></p><div id="applications"></div><button id="nextPage" type="button" class="secondary" hidden>下一頁</button></section>
 <dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少起始或當日量測時保持空白。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
 <dialog id="cropDialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">選手照片・1:1 裁切</h2><button id="cancelCrop" type="button" class="secondary">取消</button></div><p id="cropPerson"></p><p class="photo-note">本版僅預覽，不會上傳照片。拖曳照片調整位置，使用滑桿縮放。</p><label for="photoFile">選擇照片（JPEG、PNG、WebP，最大 10 MB）</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><p id="cropStatus" role="status" aria-live="polite"></p><canvas id="cropCanvas" class="crop-stage" width="720" height="720" aria-label="正方形裁切預覽，可拖曳照片；也可使用下方方向按鈕調整"></canvas><label for="cropZoom">縮放</label><input id="cropZoom" type="range" min="1" max="4" step="0.01" value="1" disabled><div class="crop-controls"><button id="cropLeft" type="button" class="secondary" aria-label="照片向左移動" disabled>←</button><button id="cropUp" type="button" class="secondary" aria-label="照片向上移動" disabled>↑</button><button id="cropDown" type="button" class="secondary" aria-label="照片向下移動" disabled>↓</button><button id="cropRight" type="button" class="secondary" aria-label="照片向右移動" disabled>→</button><button id="resetCrop" type="button" class="secondary" disabled>重設位置</button><button id="confirmCrop" type="button" disabled>確認裁切</button></div></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.4.2｜2026/10/15 19:05（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.5.0｜2026/10/15 19:25（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -50,6 +52,7 @@ let initPromise=null,bridge=null,bridgeSource=null,bridgeOrigin='',bridgeNonce='
 const pending=new Map();
 const photoPreviews=new Map(),namePreviews=new Map();
 let crop=null,photoLoadSequence=0;
+let timelinePages=null,timelineHeads=[],timelineOperations={};
 function hasWorkAccess(){return !!sessionToken&&!!(permissions?.isCoach||permissions?.isCurrentDirector||permissions?.isSuperAdmin);}
 function busyText(id,text,busy=false){$(id).textContent=text;$(id).setAttribute('data-busy',String(busy));}
 function status(text){busyText('status',text,authBusy);}
@@ -65,7 +68,9 @@ function syncControls(){
  $('reloadPage').disabled=busy||!$('teamSelect').value;$('reloadPage').textContent=pageBusy?'讀取資料中…':'重新讀取已存資料';
  $('submitMeasurements').disabled=busy||!lastPage?.writeEnabled||!changedRows().length;
  $('submitMeasurements').textContent=saving?'送出中，請稍候…':'確認送出';$('previewGrid').disabled=busy||!lastPage;
- for(const item of inputs){item.weight.disabled=busy;item.fat.disabled=busy;item.nameInput.disabled=busy||!hasWorkAccess();}
+ for(const item of inputs){item.weight.disabled=busy||item.writeEnabled===false;item.fat.disabled=busy||item.writeEnabled===false;item.nameInput.disabled=busy||!hasWorkAccess();}
+ for(const id of ['timelineStart','timelineToday','timelinePrev','timelineNext'])$(id).disabled=busy;
+ if(timelinePages)$('submitMeasurements').disabled=busy||!changedRows().length;
  for(const button of $('measurementRows').querySelectorAll('button'))button.disabled=busy||!hasWorkAccess();
  $('reloadApplications').disabled=authBusy||reviewBusy;$('nextPage').disabled=authBusy||reviewBusy;
  for(const button of $('applications').querySelectorAll('button'))button.disabled=authBusy||reviewBusy;
@@ -124,7 +129,7 @@ async function callBackend(action,payload){
   });
 }
 function closeGrid(){if($('gridDialog').open)$('gridDialog').close();$('gridOverlay').replaceChildren();$('roster').replaceChildren();}
-function clearWork(){cancelPhotoCrop();requestGeneration++;lastPage=null;inputs=[];operationId='';closeGrid();$('entryPanel').hidden=true;$('measurementRows').replaceChildren();}
+function clearWork(){timelinePages=null;timelineHeads=[];$('timelineTools').hidden=true;cancelPhotoCrop();requestGeneration++;lastPage=null;inputs=[];operationId='';closeGrid();$('entryPanel').hidden=true;$('measurementRows').replaceChildren();}
 function hideAccount(){
  photoPreviews.clear();namePreviews.clear();cancelPhotoCrop();workspaceRequest++;reviewRequest++;requestGeneration++;sessionToken='';identity=null;permissions=null;applicationState='none';
  teamsBusy=false;pageBusy=false;clearWork();$('account').hidden=true;$('teamCard').hidden=true;$('reviewCard').hidden=true;$('applyCard').hidden=false;
@@ -191,16 +196,16 @@ async function loadPage(discard=false){
  if(!hasWorkAccess()||!$('teamSelect').value)return;
  if(discard&&changedRows().length&&!window.confirm('重新讀取會捨棄目前這份草稿，確定繼續？'))return;
  if(discard)removeDraft();else saveDraft();
- const query={teamLapId:$('teamSelect').value,measuredDate:$('measuredDate').value,phase:$('measurementPhase').value};
+ const query={teamLapId:$('teamSelect').value,measuredDate:$('measuredDate').value,phase:'AUTO',includeTimeline:true};
  clearWork();const seq=requestGeneration,token=sessionToken;pageBusy=true;syncControls();busyText('teamStatus','正在讀取名單與已存成績…',true);
  try{const data=await callBackend('measurementPage',{sessionToken:token,query});if(seq!==requestGeneration||token!==sessionToken)return;
-  if(data?.teamLapId!==query.teamLapId||data.measuredDate!==query.measuredDate||data.phase!==query.phase||!Array.isArray(data.slots)||data.slots.length!==9||data.slots.some((s,i)=>s.slotIndex!==i+1))throw new Error('成績頁面資料格式不正確，請重新讀取。');
-  lastPage=data;renderInputs();restoreDraft();$('calendarStatus').textContent=data.blockedReason||('起始量測：'+data.startMeasurementDate+'｜決賽量測：'+data.finishMeasurementDate);
+  if(data?.teamLapId!==query.teamLapId||(data.timelineVersion!=='1.0.0')||!Array.isArray(data.slots)||data.slots.length!==9||data.slots.some((s,i)=>s.slotIndex!==i+1))throw new Error('成績頁面資料格式不正確，請重新讀取。');
+  lastPage=data;timelinePages=Array.isArray(data.timeline)&&data.timeline.length===11?data.timeline:null;timelineOperations={};renderInputs();restoreDraft();$('calendarStatus').textContent=data.blockedReason||('起始量測：'+data.startMeasurementDate+'｜決賽量測：'+data.finishMeasurementDate);
   $('entryPanel').hidden=false;busyText('teamStatus','已載入 '+data.rosterCount+' 位參賽者，'+(9-data.rosterCount)+' 個空位。');busyText('saveStatus','');
  }catch(err){if(seq===requestGeneration&&token===sessionToken){handleError(err,'teamStatus');if(err.code==='COACH_REQUIRED'){$('teamCard').hidden=true;status('權限已變更，請重新確認權限。');}}}
- finally{if(seq===requestGeneration){pageBusy=false;$('teamStatus').setAttribute('data-busy','false');syncControls();}}
+ finally{if(seq===requestGeneration){pageBusy=false;$('teamStatus').setAttribute('data-busy','false');syncControls();updateTimeline();}}
 }
-function renderInputs(){
+function renderLegacyInputs(){
  inputs=[];$('measurementRows').replaceChildren();
  for(const slot of lastPage.slots){
   const tr=document.createElement('tr'),name=document.createElement('td');
@@ -220,23 +225,23 @@ function renderInputs(){
   }inputs.push(item);$('measurementRows').appendChild(tr);
  }
 }
-function changedRows(){return inputs.filter(i=>i.weight.value.trim()!==String(i.slot.weightKg??'')||i.fat.value.trim()!==String(i.slot.bodyFatPercent??'')).map(i=>({entryId:i.slot.entryId,weightKg:i.weight.value.trim(),bodyFatPercent:i.fat.value.trim(),expectedRevision:i.expectedRevision}));}
-function draftKey(){return identity&&lastPage?'injoy-draft-v1:'+identity.userId+':'+lastPage.teamLapId+':'+lastPage.measuredDate+':'+lastPage.phase:null;}
+function legacyChangedRows(){return inputs.filter(i=>i.weight.value.trim()!==String(i.slot.weightKg??'')||i.fat.value.trim()!==String(i.slot.bodyFatPercent??'')).map(i=>({entryId:i.slot.entryId,weightKg:i.weight.value.trim(),bodyFatPercent:i.fat.value.trim(),expectedRevision:i.expectedRevision}));}
+function draftKey(){return identity&&lastPage?'injoy-draft-v1:'+identity.userId+':'+lastPage.teamLapId+':'+(timelinePages?'timeline':lastPage.measuredDate+':'+lastPage.phase):null;}
 function saveDraft(){
  const key=draftKey();if(!key)return;
- try{const rows=changedRows();if(rows.length){sessionStorage.setItem(key,JSON.stringify({rows,operationId}));$('draftStatus').textContent='草稿已保存在本瀏覽器分頁，尚未寫入成績。';}else{sessionStorage.removeItem(key);$('draftStatus').textContent='目前沒有未送出的變更。';}}
+ try{const rows=changedRows();if(rows.length){sessionStorage.setItem(key,JSON.stringify({rows,operationId,timelineOperations}));$('draftStatus').textContent='草稿已保存在本瀏覽器分頁，尚未寫入成績。';}else{sessionStorage.removeItem(key);$('draftStatus').textContent='目前沒有未送出的變更。';}}
  catch(err){$('draftStatus').textContent='此瀏覽器無法保存草稿；目前輸入僅保留在開啟的頁面中。';}
 }
 function restoreDraft(){
  const key=draftKey();if(!key)return;try{
   const draft=JSON.parse(sessionStorage.getItem(key)||'null');if(!draft||!Array.isArray(draft.rows)){$('draftStatus').textContent='目前顯示已儲存資料。';return;}
-  for(const row of draft.rows){const item=inputs.find(i=>i.slot.entryId===row.entryId);if(item&&typeof row.weightKg==='string'&&typeof row.bodyFatPercent==='string'&&Number.isSafeInteger(row.expectedRevision)){
+  for(const row of draft.rows){const item=inputs.find(i=>i.slot.entryId===row.entryId&&(!timelinePages||i.date===row.measuredDate));if(item&&typeof row.weightKg==='string'&&typeof row.bodyFatPercent==='string'&&Number.isSafeInteger(row.expectedRevision)){
    item.weight.value=row.weightKg;item.fat.value=row.bodyFatPercent;item.expectedRevision=row.expectedRevision;
-  }}operationId=/^[a-f0-9]{32}$/.test(draft.operationId||'')?draft.operationId:'';$('draftStatus').textContent='已恢復本帳號草稿，請核對後送出；若版本已變更，系統會阻止覆蓋。';
+  }}timelineOperations=draft.timelineOperations&&typeof draft.timelineOperations==='object'?draft.timelineOperations:{};operationId=/^[a-f0-9]{32}$/.test(draft.operationId||'')?draft.operationId:'';$('draftStatus').textContent='已恢復本帳號草稿，請核對後送出；若版本已變更，系統會阻止覆蓋。';
  }catch(err){$('draftStatus').textContent='草稿無法還原，請重新核對輸入。';}
 }
 function removeDraft(){const key=draftKey();if(key){try{sessionStorage.removeItem(key);}catch(err){}}}
-async function submitMeasurements(){
+async function submitLegacyMeasurements(){
  if(saving||authBusy||pageBusy||teamsBusy||!hasWorkAccess()||!lastPage?.writeEnabled)return;
  const rows=changedRows();if(!rows.length)return;
  if(rows.some(r=>!/^\d+(?:\.\d{1,3})?$/.test(r.weightKg)||Number(r.weightKg)<=0||(r.bodyFatPercent!==''&&(!/^\d+(?:\.\d{1,2})?$/.test(r.bodyFatPercent)||Number(r.bodyFatPercent)>100)))){busyText('saveStatus','請填入大於0的體重（最多3位小數）；體脂率可留空，填寫時須為0至100（最多2位小數）。');return;}
@@ -270,7 +275,7 @@ async function reviewApplication(item,decision){
 
 function previewName(slot){return namePreviews.get(photoKey(lastPage?.teamLapId,slot.entryId))||slot.displayName||'姓名未設定';}
 function photoKey(teamLapId,entryId){return JSON.stringify([teamLapId,entryId]);}
-function refreshPhotoInputs(){const draft=inputs.map(i=>({entryId:i.slot.entryId,weight:i.weight.value,fat:i.fat.value}));renderInputs();for(const i of inputs){const d=draft.find(v=>v.entryId===i.slot.entryId);if(d){i.weight.value=d.weight;i.fat.value=d.fat;}}syncControls();}
+function refreshPhotoInputs(){const draft=inputs.map(i=>({entryId:i.slot.entryId,date:i.date,weight:i.weight.value,fat:i.fat.value}));renderInputs();for(const i of inputs){const d=draft.find(v=>v.entryId===i.slot.entryId&&v.date===i.date);if(d){i.weight.value=d.weight;i.fat.value=d.fat;}}syncControls();}
 function cropAllowed(){return !!crop&&hasWorkAccess()&&lastPage?.teamLapId===crop.teamLapId&&lastPage.slots.some(s=>s.occupied&&s.entryId===crop.entryId)&&!saving&&!pageBusy&&!teamsBusy;}
 function cropButtons(enabled){for(const id of ['cropZoom','cropLeft','cropRight','cropUp','cropDown','resetCrop','confirmCrop'])$(id).disabled=!enabled;}
 function cancelPhotoCrop(){photoLoadSequence++;crop=null;cropButtons(false);$('photoFile').value='';if($('cropDialog').open)$('cropDialog').close();const c=$('cropCanvas');if(c.getContext)c.getContext('2d')?.clearRect(0,0,c.width,c.height);}
@@ -295,6 +300,43 @@ for(const [id,dx,dy]of [['cropLeft',-20,0],['cropRight',20,0],['cropUp',0,-20],[
 $('cropCanvas').addEventListener('pointerdown',e=>{if(!cropAllowed()||!crop.image||e.isPrimary===false||(e.pointerType==='mouse'&&e.button!==0))return;crop.drag={id:e.pointerId,x:e.clientX,y:e.clientY};$('cropCanvas').setPointerCapture(e.pointerId);});
 $('cropCanvas').addEventListener('pointermove',e=>{if(!cropAllowed()||!crop.image||crop.drag?.id!==e.pointerId)return;const rect=$('cropCanvas').getBoundingClientRect();moveCrop((e.clientX-crop.drag.x)*720/rect.width,(e.clientY-crop.drag.y)*720/rect.height);crop.drag.x=e.clientX;crop.drag.y=e.clientY;});
 for(const type of ['pointerup','pointercancel','lostpointercapture'])$('cropCanvas').addEventListener(type,e=>{if(crop?.drag?.id===e.pointerId)crop.drag=null;});
+
+
+function changedRows(){if(!timelinePages)return legacyChangedRows();return inputs.filter(i=>i.weight.value.trim()!==String(i.slot.weightKg??'')||i.fat.value.trim()!==String(i.slot.bodyFatPercent??'')).map(i=>({entryId:i.slot.entryId,measuredDate:i.date,phase:i.phase,weightKg:i.weight.value.trim(),bodyFatPercent:i.fat.value.trim(),expectedRevision:i.expectedRevision}));}
+function renderInputs(){
+ renderLegacyInputs();const sc=$('measurementScroll');sc.className=timelinePages?'timeline-sheet':'table-scroll';$('timelineTools').hidden=!timelinePages;if(!timelinePages){$('measurementTable').style.paddingRight='0px';return;}
+ const names=Array.from($('measurementRows').children).map(tr=>tr.children[0]),namesInputs=inputs.map(i=>({entryId:i.slot.entryId,node:i.nameInput}));
+ $('measurementRows').replaceChildren();$('measurementHead').replaceChildren();timelineHeads=[];inputs=[];
+ const head=document.createElement('tr'),corner=document.createElement('th');corner.className='timeline-person';corner.scope='col';const info=document.createElement('div');info.className='corner';info.textContent='第 '+lastPage.lapNumber+' 圈';const count=document.createElement('small');count.textContent=lastPage.rosterCount+' 位選手';info.appendChild(count);corner.appendChild(info);head.appendChild(corner);
+ timelinePages.forEach((page,day)=>{const th=document.createElement('th');th.scope='col';const card=document.createElement('div');card.className='date-head';const title=document.createElement('strong');title.textContent=day===0?'起始・前測':'第 '+day+' 天';const label=document.createElement('small'),date=new Date(page.measuredDate+'T00:00:00Z');label.textContent=page.measuredDate.slice(5).replace('-','/')+'・星期'+'日一二三四五六'[date.getUTCDay()];card.appendChild(title);card.appendChild(label);th.appendChild(card);th.addEventListener('click',()=>{if(!saving&&!pageBusy)goTimeline(day);});head.appendChild(th);timelineHeads.push(th);});$('measurementHead').appendChild(head);
+ lastPage.slots.forEach((slot,rowIndex)=>{const tr=document.createElement('tr'),left=names[rowIndex];left.className='timeline-person';left.colSpan=1;tr.appendChild(left);
+ timelinePages.forEach(page=>{const td=document.createElement('td'),bubble=document.createElement('div');bubble.className='bubble';if(!slot.occupied){bubble.textContent='空位';td.appendChild(bubble);tr.appendChild(td);return;}const s=page.slots[rowIndex],item={slot:s,nameInput:namesInputs.find(i=>i.entryId===s.entryId).node,expectedRevision:s.expectedRevision,date:page.measuredDate,phase:page.phase,writeEnabled:page.writeEnabled};
+ for(const [field,label,value]of [['weight','體重',s.weightKg],['fat','體脂',s.bodyFatPercent]]){const line=document.createElement('div');line.className='field';const lab=document.createElement('label');lab.textContent=label;const input=document.createElement('input');input.type='text';input.inputMode='decimal';input.autocomplete='off';input.value=value??'';input.placeholder=field==='weight'?(s.isCarried?s.effectiveWeightKg:'待輸入'):'選填';input.setAttribute('aria-label',previewName(s)+' '+page.measuredDate+' '+label);input.addEventListener('input',()=>{delete timelineOperations[page.measuredDate];saveDraft();busyText('saveStatus','有尚未送出的變更；淡色沿用數字不會建立新紀錄。');syncControls();});lab.appendChild(input);line.appendChild(lab);bubble.appendChild(line);item[field]=input;}
+ const note=document.createElement('div');note.className='source';note.textContent=s.isCarried?'沿用 '+s.sourceMeasuredDate:(s.measurementSaved?'本日已儲存':page.phase==='START'?'請輸入起始體重':'尚未量測');bubble.appendChild(note);td.appendChild(bubble);tr.appendChild(td);inputs.push(item);
+ });$('measurementRows').appendChild(tr);});
+ const selected=timelinePages.findIndex(p=>p.measuredDate===lastPage.measuredDate);requestAnimationFrame(()=>{if(!timelinePages)return;const width=timelineHeads[0].getBoundingClientRect().width,left=corner.getBoundingClientRect().width;$('measurementTable').style.paddingRight=Math.max(0,sc.clientWidth-left-width)+'px';goTimeline(Math.max(0,selected),false);});
+}
+function timelineIndex(){if(!timelineHeads.length)return 0;return Math.max(0,Math.min(10,Math.round($('measurementScroll').scrollLeft/timelineHeads[0].getBoundingClientRect().width)));}
+function updateTimeline(){if(!timelinePages||saving||pageBusy)return;const i=timelineIndex();lastPage=timelinePages[i];$('measuredDate').value=lastPage.measuredDate;$('measurementPhase').value=lastPage.phase;$('timelineLabel').textContent=(i===0?'起始前測':'第 '+i+' 天')+'｜'+lastPage.measuredDate+'｜九宮格預覽日期';}
+function goTimeline(index,smooth=true){if(!timelineHeads.length||saving||pageBusy)return;index=Math.max(0,Math.min(10,index));$('measurementScroll').scrollTo({left:timelineHeads[index].offsetLeft-timelineHeads[0].offsetLeft,behavior:smooth?'smooth':'instant'});if(!smooth)updateTimeline();}
+async function submitMeasurements(){
+ if(!timelinePages)return submitLegacyMeasurements();if(saving||authBusy||pageBusy||teamsBusy||!hasWorkAccess())return;const rows=changedRows();if(!rows.length)return;
+ if(rows.some(r=>!/^\d+(?:\.\d{1,3})?$/.test(r.weightKg)||Number(r.weightKg)<=0||(r.bodyFatPercent!==''&&(!/^\d+(?:\.\d{1,2})?$/.test(r.bodyFatPercent)||Number(r.bodyFatPercent)>100)))){busyText('saveStatus','請填入有效體重；僅填體脂時，請一併確認該日體重。');return;}
+ const dates=Array.from(new Set(rows.map(r=>r.measuredDate))).sort();if(dates.some(date=>!timelinePages.find(p=>p.measuredDate===date)?.writeEnabled)){busyText('saveStatus','部分日期尚未開放登錄，請核對圈次設定。');return;}
+ if(!window.confirm('確認儲存 '+dates.length+' 個日期、共 '+rows.length+' 筆選手量測？各日期依序儲存；若中斷，已完成日期會保留。'))return;
+ saving=true;syncControls();const token=sessionToken;let completed=0,problem='';
+ try{for(const date of dates){const batch=rows.filter(r=>r.measuredDate===date),page=timelinePages.find(p=>p.measuredDate===date);timelineOperations[date]=/^[a-f0-9]{32}$/.test(timelineOperations[date]||'')?timelineOperations[date]:randomHex(16);saveDraft();busyText('saveStatus','正在儲存 '+date+'（'+(completed+1)+'/'+dates.length+'）…',true);
+ const result=await callBackend('saveMeasurements',{sessionToken:token,payload:{teamLapId:page.teamLapId,measuredDate:date,phase:'AUTO',rows:batch.map(({measuredDate,phase,...row})=>row)},operationId:timelineOperations[date]});if(token!==sessionToken)return;
+ if(!Number.isInteger(result.savedCount)||result.savedCount!==batch.length)throw new Error('儲存回應不完整，請重新核對。');
+ for(const item of inputs.filter(i=>i.date===date)){const row=batch.find(r=>r.entryId===item.slot.entryId);if(row){item.slot.weightKg=row.weightKg;item.slot.bodyFatPercent=row.bodyFatPercent;item.expectedRevision=row.expectedRevision+1;item.slot.expectedRevision=item.expectedRevision;}}delete timelineOperations[date];completed++;saveDraft();
+ }}catch(err){problem=err.message||'儲存中斷';if(['SESSION_REQUIRED','SESSION_EXPIRED'].includes(err.code)){handleError(err);return;}}
+ finally{saving=false;$('saveStatus').setAttribute('data-busy','false');syncControls();}
+ if(token===sessionToken){saveDraft();await loadPage();busyText('saveStatus',problem?'已儲存 '+completed+' 個日期；其餘草稿保留。'+problem:'已成功儲存 '+completed+' 個日期的變更。');}
+}
+function setupTimeline(){const sc=$('measurementScroll');let drag=null;sc.addEventListener('scroll',updateTimeline,{passive:true});sc.addEventListener('pointerdown',e=>{if(!timelinePages||saving||e.pointerType!=='mouse'||e.button!==0||e.target.closest('input,button,label,a'))return;drag={id:e.pointerId,x:e.clientX,left:sc.scrollLeft,moved:false};});sc.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const dx=e.clientX-drag.x;if(!drag.moved&&Math.abs(dx)<5)return;drag.moved=true;sc.setPointerCapture(e.pointerId);sc.scrollLeft=drag.left-dx;e.preventDefault();});for(const type of ['pointerup','pointercancel','lostpointercapture'])sc.addEventListener(type,e=>{if(drag?.id===e.pointerId)drag=null;});
+ $('timelineStart').addEventListener('click',()=>goTimeline(0));$('timelinePrev').addEventListener('click',()=>goTimeline(timelineIndex()-1));$('timelineNext').addEventListener('click',()=>goTimeline(timelineIndex()+1));$('timelineToday').addEventListener('click',()=>{const date=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());const i=timelinePages?.findIndex(p=>p.measuredDate===date);if(i>=0)goTimeline(i);else busyText('saveStatus','今天不在本圈期間內，請選擇要查看的日期。');});
+}
+setupTimeline();
 
 function svgNode(tag,attrs){const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))n.setAttribute(k,String(v));$('gridOverlay').appendChild(n);return n;}
 function overlayText(value,x,y,width,size){if(value===null||value===undefined||value==='')return;const n=svgNode('text',{x,y,'text-anchor':'middle','dominant-baseline':'middle','font-size':size});n.textContent=String(value);const w=n.getComputedTextLength();if(w>width)n.setAttribute('font-size',String(size*width/w));}
@@ -369,7 +411,7 @@ $('login').addEventListener('click',login);$('apply').addEventListener('click',a
 $('refresh').addEventListener('click',async()=>{if(authBusy||saving||applyBusy||reviewBusy||teamsBusy||pageBusy)return;authBusy=true;authOperation='refresh';syncControls();try{await refreshPermissions();}catch(err){handleError(err);}finally{authBusy=false;authOperation='';$('status').setAttribute('data-busy','false');syncControls();}});
 $('logout').addEventListener('click',async()=>{if(authBusy||saving||applyBusy||reviewBusy)return;const token=sessionToken,uid=identity?.userId;authBusy=true;authOperation='logout';hideAccount();syncControls();try{if(uid)for(const key of Object.keys(sessionStorage))if(key.startsWith('injoy-draft-v1:'+uid+':'))sessionStorage.removeItem(key);}catch(err){}try{if(token)await callBackend('logout',{sessionToken:token});}catch(err){}if(window.liff&&liff.isLoggedIn())liff.logout();authBusy=false;authOperation='';status('已登出。');syncControls();});
 $('reloadTeams').addEventListener('click',()=>{if(!authBusy&&!saving&&!teamsBusy&&!pageBusy)loadTeams();});$('reloadPage').addEventListener('click',()=>{if(!authBusy&&!saving&&!teamsBusy&&!pageBusy)loadPage(true);});
-for(const id of ['teamSelect','measuredDate','measurementPhase'])$(id).addEventListener('change',()=>{if(!authBusy&&!saving&&!teamsBusy&&!pageBusy)loadPage();});
+for(const id of ['teamSelect'])$(id).addEventListener('change',()=>{if(!authBusy&&!saving&&!teamsBusy&&!pageBusy)loadPage();});
 $('submitMeasurements').addEventListener('click',submitMeasurements);$('previewGrid').addEventListener('click',previewGrid);$('closeGrid').addEventListener('click',closeGrid);
 $('gridBackground').addEventListener('error',imageFailed);$('gridBackground').addEventListener('load',()=>{$('gridImage').hidden=false;});
 $('reloadApplications').addEventListener('click',()=>loadApplications(0));$('nextPage').addEventListener('click',()=>{if(nextOffset!==null)loadApplications(nextOffset);});
