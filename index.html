@@ -7,16 +7,21 @@
 <title>InJoy 營養俱樂部｜教練工作台</title>
 <style>
 :root{font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;color:#302621;background:#faf6ef}*{box-sizing:border-box}body{margin:0}main{max-width:1060px;margin:24px auto;padding:20px}header{border-top:5px solid #be4438;padding:18px 0}h1{font-size:26px;margin:8px 0}h2{font-size:21px;margin:0 0 14px}h3{font-size:18px;margin:0 0 12px}p{line-height:1.7}.area{margin:22px 0}.card{background:#fff;border:1px solid #e8dfd2;border-radius:16px;padding:20px;box-shadow:0 6px 22px #4b352008}.account-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.badge{display:inline-block;background:#f3eadb;border-radius:20px;padding:5px 12px;margin:4px 6px 4px 0;font-size:14px}.hint,.version{font-size:14px;color:#6e6256}.version{font-size:13px}.wrap{overflow-wrap:anywhere}button{background:#a8352e;color:#fff;border:0;border-radius:9px;padding:12px 16px;font:inherit;cursor:pointer;margin:6px 6px 6px 0}button.secondary{background:#eee6db;color:#302621}button:disabled{opacity:.55;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #d89b30;outline-offset:3px}input,select{width:100%;font:inherit;font-size:16px;color:inherit;padding:11px;border:1px solid #d8cbbd;border-radius:8px;background:#fff}label{display:block;margin:0 0 7px}.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}.table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{text-align:left;border-bottom:1px solid #e8dfd2;padding:12px 8px}th{font-size:14px}td:first-child{width:40%;overflow-wrap:anywhere}td input{min-width:80px}.entry-goal{display:block;font-size:12px;color:#857668}.sticky-actions{position:sticky;bottom:0;background:#fffef5;padding:10px;border:1px solid #e8dfd2;border-radius:10px}.application{border-top:1px solid #e8dfd2;padding:14px 0}.application strong{display:block}details summary{cursor:pointer}.grid-image{position:relative;max-width:620px;margin:10px auto}.grid-image>img{display:block;width:100%;height:auto}.grid-image>svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.grid-image text{font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;font-weight:800;fill:#29221d}dialog{border:1px solid #e8dfd2;border-radius:16px;padding:18px;width:min(94vw,700px);max-height:92vh;overflow:auto}dialog::backdrop{background:#241b18aa}.dialog-head{position:sticky;top:-18px;background:#fff;z-index:1;display:flex;align-items:center;justify-content:space-between;padding:8px 0}.dialog-head h2{margin:0}.roster{padding-left:24px}iframe{display:none}[hidden]{display:none!important}[role=status]{white-space:pre-wrap}[data-busy=true]::before{content:"";display:inline-block;width:14px;height:14px;border:2px solid #dbc6af;border-top-color:#a8352e;border-radius:50%;margin-right:8px;vertical-align:-2px;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){[data-busy=true]::before{animation:none}}@media(max-width:640px){main{margin:0;padding:14px}.account-grid,.filters{grid-template-columns:1fr}.card{padding:16px}th,td{padding:10px 4px}.sticky-actions button{padding:11px 12px;font-size:14px}}
+
+/* 1.3.1：第一區為緊湊資訊卡；窄畫面保留左右並排，可水平捲動。 */
+main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-width:3px}h1{font-size:22px;margin:4px 0}header>p{margin:3px 0;font-size:13px}header>.version{font-size:11px}.area{margin:14px 0}
+#accountArea{max-width:760px;padding:12px;background:#f3ede3;border:1px solid #e5dacb;border-radius:16px}.account-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.account-heading h2{font-size:13px;color:#776654;margin:0;font-weight:600}.account-grid{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#c7ae92 transparent;padding:2px 2px 6px;cursor:grab;touch-action:pan-x pan-y;min-width:0}.account-grid[data-dragging="true"]{cursor:grabbing;user-select:none;scroll-snap-type:none}.account-grid>.card{flex:0 0 calc((100% - 10px)/2);min-width:190px;min-height:0;padding:12px 14px;border-radius:13px;scroll-snap-align:start;box-shadow:0 2px 8px #4b352006}.account-grid>.card:only-child{flex-basis:100%}.account-grid:has(>#account[hidden])>#loginCard{flex-basis:100%}.account-grid h3{font-size:13px;color:#776654;margin:0 0 6px}.account-grid p{margin:5px 0;line-height:1.45;font-size:13px}.account-grid #displayName{font-size:16px;font-weight:700;margin:3px 0 5px}.account-grid button{font-size:12px;padding:7px 10px;margin:4px 5px 0 0;border-radius:7px}.account-grid .badge{font-size:11px;padding:3px 7px;margin:2px 4px 2px 0}.account-details{margin-top:6px;font-size:12px;color:#776654}.account-details .hint{font-size:11px}.rail-controls{display:flex;gap:4px}.rail-controls button{margin:0;padding:1px 9px;font-size:21px;line-height:1.2;border-radius:7px}.account-grid:focus-visible{outline:2px solid #d89b30;outline-offset:3px}
+@media(max-width:640px){main{padding:10px}#accountArea{padding:9px}.account-grid{gap:8px}.account-grid>.card{flex-basis:calc((100% - 8px)/2);min-width:165px;padding:10px}.account-grid #displayName{font-size:14px}.account-grid button{font-size:12px;padding:7px 8px}h1{font-size:20px}}
 </style>
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.3.0｜更新：2026/10/15 13:35（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.3.1｜更新：2026/10/15 17:45（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
-<h2 id="accountTitle">帳號與身分</h2>
-<div class="account-grid">
-<div class="card" id="loginCard"><h3>登入狀態</h3><p id="status" role="status" aria-live="polite">請使用 LINE 帳號登入。</p><button id="login" type="button">LINE 登入</button><button id="refresh" type="button" class="secondary" hidden>重新確認權限</button><button id="logout" type="button" class="secondary" hidden>登出</button><p class="hint">可收藏固定網址，在瀏覽器與 LINE 之間切換使用。</p></div>
-<div class="card" id="account" hidden><h3>身分資訊</h3><p id="displayName"></p><div id="roles"></div><p id="access" class="hint"></p><details><summary>帳號資訊</summary><p id="userId" class="hint wrap"></p></details></div>
+<div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
+<div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
+<div class="card" id="loginCard"><h3>登入狀態</h3><p id="status" role="status" aria-live="polite">請使用 LINE 帳號登入。</p><button id="login" type="button">LINE 登入</button><button id="refresh" type="button" class="secondary" hidden>重新確認權限</button><button id="logout" type="button" class="secondary" hidden>登出</button></div>
+<div class="card" id="account" hidden><h3>身分資訊</h3><p id="displayName"></p><div id="roles"></div><details class="account-details"><summary>帳號與權限</summary><p id="access" class="hint"></p><p id="userId" class="hint wrap"></p></details></div>
 </div></section>
 <section class="area card" id="applyCard" aria-labelledby="applyTitle"><h2 id="applyTitle">申請成為教練</h2><p id="applyStatus" role="status" aria-live="polite">登入後即可申請，核准前不能查看選手資料。</p><button id="apply" type="button" disabled>申請教練資格</button></section>
 <section class="area card" id="teamCard" hidden aria-labelledby="entryTitle">
@@ -28,7 +33,7 @@
 </section>
 <section class="area card" id="reviewCard" hidden aria-labelledby="reviewTitle"><h2 id="reviewTitle">教練申請審核</h2><p class="hint">僅超級管理者可審核；總監另行指定。</p><button id="reloadApplications" type="button" class="secondary">重新整理待審清單</button><p id="reviewStatus" role="status" aria-live="polite"></p><div id="applications"></div><button id="nextPage" type="button" class="secondary" hidden>下一頁</button></section>
 <dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。缺少起始或當日量測時，成果保持空白。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.3.0｜2026/10/15 13:35（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.3.1｜2026/10/15 17:45（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -47,7 +52,7 @@ function syncControls(){
  const busy=authBusy||teamsBusy||pageBusy||saving;
  $('login').hidden=!!sessionToken;$('login').disabled=authBusy;$('login').textContent=authBusy?'登入中…':'LINE 登入';
  $('refresh').hidden=!sessionToken;$('logout').hidden=!sessionToken;
- $('refresh').disabled=busy||applyBusy||reviewBusy;$('refresh').textContent=authOperation==='refresh'?'確認中…':'重新確認權限';
+ $('refresh').disabled=busy||applyBusy||reviewBusy;$('refresh').textContent=authOperation==='refresh'?'確認中…':'更新權限';
  $('logout').disabled=authBusy||saving||applyBusy||reviewBusy;$('logout').textContent=authOperation==='logout'?'登出中…':'登出';
  $('apply').disabled=!sessionToken||authBusy||applyBusy||applicationState==='pending';$('apply').textContent=applyBusy?'申請送出中…':applicationState==='pending'?'等待審核':'申請教練資格';
  $('teamSelect').disabled=busy||!$('teamSelect').value;$('measuredDate').disabled=busy||!hasWorkAccess();$('measurementPhase').disabled=busy||!hasWorkAccess();
@@ -58,6 +63,7 @@ function syncControls(){
  for(const item of inputs){item.weight.disabled=busy;item.fat.disabled=busy;}
  $('reloadApplications').disabled=authBusy||reviewBusy;$('nextPage').disabled=authBusy||reviewBusy;
  for(const button of $('applications').querySelectorAll('button'))button.disabled=authBusy||reviewBusy;
+ updateAccountRail();
  $('teamCard').setAttribute('aria-busy',String(teamsBusy||pageBusy||saving));$('reviewCard').setAttribute('aria-busy',String(reviewBusy));
 }
 function randomHex(bytes){return Array.from(crypto.getRandomValues(new Uint8Array(bytes)),x=>x.toString(16).padStart(2,'0')).join('');}
@@ -129,7 +135,7 @@ function render(data){
  for(const label of labels){const node=document.createElement('span');node.className='badge';node.textContent=label;$('roles').appendChild(node);}
  $('access').textContent=hasWorkAccess()?'可選擇隊伍並登錄成績；表揚選取與正式輸出限當屆總監。':'可以申請成為教練，核准後才開放選手資料。';
  $('teamCard').hidden=!hasWorkAccess();$('applyCard').hidden=hasWorkAccess();$('reviewCard').hidden=!permissions.isSuperAdmin;
- if(!hasWorkAccess()){clearWork();placeholder('尚未取得教練資格');}if(!permissions.isSuperAdmin)$('applications').replaceChildren();status('已登入，身分已由後端確認。');syncControls();
+ if(!hasWorkAccess()){clearWork();placeholder('尚未取得教練資格');}if(!permissions.isSuperAdmin)$('applications').replaceChildren();status('已登入');syncControls();
 }
 async function loadWorkspace(){
  const seq=++workspaceRequest,token=sessionToken;
@@ -262,6 +268,51 @@ function previewGrid(){
  if($('gridBackground').complete&&!$('gridBackground').naturalWidth)imageFailed();
 }
 function imageFailed(){$('gridImage').hidden=true;$('gridCaption').textContent='底圖無法讀取，請確認injoy-grid-square-v1.png與index.html在同一層；完整名單仍可查看。';}
+// 滑鼠拖曳只作用於卡片空白處；按鈕、連結與展開資訊仍可正常點擊。
+function updateAccountRail(){
+ const rail=$('accountRail'),max=Math.max(0,(rail.scrollWidth||0)-(rail.clientWidth||0));
+ $('accountRailControls').hidden=max<=2;
+ $('accountPrev').disabled=max<=2||rail.scrollLeft<=1;
+ $('accountNext').disabled=max<=2||rail.scrollLeft>=max-1;
+}
+function setupAccountRail(){
+ const rail=$('accountRail');let drag=null,suppressClick=false;
+ rail.addEventListener('pointerdown',e=>{
+  suppressClick=false;
+  if(e.pointerType!=='mouse'||e.button!==0||rail.scrollWidth<=rail.clientWidth||e.target.closest('button,a,input,select,textarea,summary,details,label,[contenteditable]'))return;
+  drag={id:e.pointerId,x:e.clientX,left:rail.scrollLeft,moved:false};
+ });
+ rail.addEventListener('pointermove',e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  const distance=e.clientX-drag.x;if(!drag.moved&&Math.abs(distance)<5)return;
+  if(!drag.moved){drag.moved=true;rail.setPointerCapture(e.pointerId);rail.setAttribute('data-dragging','true');}
+  e.preventDefault();rail.scrollLeft=drag.left-distance;updateAccountRail();
+ });
+ const end=e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  suppressClick=drag.moved;drag=null;rail.setAttribute('data-dragging','false');
+  if(rail.hasPointerCapture(e.pointerId))rail.releasePointerCapture(e.pointerId);updateAccountRail();
+ };
+ rail.addEventListener('pointerup',end);rail.addEventListener('pointercancel',end);
+ rail.addEventListener('click',e=>{if(suppressClick){suppressClick=false;e.preventDefault();e.stopPropagation();}},true);
+ rail.addEventListener('wheel',e=>{
+  if(e.ctrlKey)return;
+  const max=rail.scrollWidth-rail.clientWidth;if(max<=1)return;
+  const scale=e.deltaMode===1?16:e.deltaMode===2?rail.clientWidth:1;
+  const delta=(Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY)*scale;
+  const next=Math.max(0,Math.min(max,rail.scrollLeft+delta));
+  // 已到邊界時保留整頁的上下捲動，不把滑鼠鎖在第一區。
+  if(Math.abs(next-rail.scrollLeft)<1)return;
+  e.preventDefault();rail.scrollLeft=next;updateAccountRail();
+ },{passive:false});
+ rail.addEventListener('scroll',updateAccountRail,{passive:true});
+ const step=direction=>rail.scrollBy({left:direction*Math.max(165,rail.clientWidth*.7),behavior:'smooth'});
+ $('accountPrev').addEventListener('click',()=>step(-1));$('accountNext').addEventListener('click',()=>step(1));
+ rail.addEventListener('keydown',e=>{if(e.target!==rail)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();step(e.key==='ArrowLeft'?-1:1);}});
+ if(typeof ResizeObserver!=='undefined'){const observer=new ResizeObserver(updateAccountRail);observer.observe(rail);}
+ window.addEventListener('resize',updateAccountRail);updateAccountRail();
+}
+setupAccountRail();
 $('login').addEventListener('click',login);$('apply').addEventListener('click',applyCoach);
 $('refresh').addEventListener('click',async()=>{if(authBusy||saving||applyBusy||reviewBusy||teamsBusy||pageBusy)return;authBusy=true;authOperation='refresh';syncControls();try{await refreshPermissions();}catch(err){handleError(err);}finally{authBusy=false;authOperation='';$('status').setAttribute('data-busy','false');syncControls();}});
 $('logout').addEventListener('click',async()=>{if(authBusy||saving||applyBusy||reviewBusy)return;const token=sessionToken,uid=identity?.userId;authBusy=true;authOperation='logout';hideAccount();syncControls();try{if(uid)for(const key of Object.keys(sessionStorage))if(key.startsWith('injoy-draft-v1:'+uid+':'))sessionStorage.removeItem(key);}catch(err){}try{if(token)await callBackend('logout',{sessionToken:token});}catch(err){}if(window.liff&&liff.isLoggedIn())liff.logout();authBusy=false;authOperation='';status('已登出。');syncControls();});
