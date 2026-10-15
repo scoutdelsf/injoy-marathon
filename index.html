@@ -18,7 +18,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.4.1｜更新：2026/10/15 18:57（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.4.2｜更新：2026/10/15 19:05（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
 <div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
 <div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
@@ -34,9 +34,9 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 <div id="entryPanel" hidden><p class="photo-note">圖卡姓名與照片試用：修改只保留在目前頁面，尚未儲存；重新整理或登出後會清除。成績「確認送出」不會儲存姓名或照片。</p><p class="hint">體重單位為公斤；體脂率可留空。空白體重不會刪除既有紀錄。</p><div class="table-scroll"><table><thead><tr><th scope="col">選手</th><th scope="col">體重 kg</th><th scope="col">體脂率 %</th></tr></thead><tbody id="measurementRows"></tbody></table></div><p id="draftStatus" class="hint" role="status" aria-live="polite"></p><div class="sticky-actions"><button id="submitMeasurements" type="button" disabled>確認送出</button><button id="previewGrid" type="button" class="secondary" disabled>預覽九宮格</button><p id="saveStatus" role="status" aria-live="polite"></p></div></div>
 </section>
 <section class="area card" id="reviewCard" hidden aria-labelledby="reviewTitle"><h2 id="reviewTitle">教練申請審核</h2><p class="hint">僅超級管理者可審核；總監另行指定。</p><button id="reloadApplications" type="button" class="secondary">重新整理待審清單</button><p id="reviewStatus" role="status" aria-live="polite"></p><div id="applications"></div><button id="nextPage" type="button" class="secondary" hidden>下一頁</button></section>
-<dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。缺少起始或當日量測時，成果保持空白。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
+<dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少起始或當日量測時保持空白。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
 <dialog id="cropDialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">選手照片・1:1 裁切</h2><button id="cancelCrop" type="button" class="secondary">取消</button></div><p id="cropPerson"></p><p class="photo-note">本版僅預覽，不會上傳照片。拖曳照片調整位置，使用滑桿縮放。</p><label for="photoFile">選擇照片（JPEG、PNG、WebP，最大 10 MB）</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><p id="cropStatus" role="status" aria-live="polite"></p><canvas id="cropCanvas" class="crop-stage" width="720" height="720" aria-label="正方形裁切預覽，可拖曳照片；也可使用下方方向按鈕調整"></canvas><label for="cropZoom">縮放</label><input id="cropZoom" type="range" min="1" max="4" step="0.01" value="1" disabled><div class="crop-controls"><button id="cropLeft" type="button" class="secondary" aria-label="照片向左移動" disabled>←</button><button id="cropUp" type="button" class="secondary" aria-label="照片向上移動" disabled>↑</button><button id="cropDown" type="button" class="secondary" aria-label="照片向下移動" disabled>↓</button><button id="cropRight" type="button" class="secondary" aria-label="照片向右移動" disabled>→</button><button id="resetCrop" type="button" class="secondary" disabled>重設位置</button><button id="confirmCrop" type="button" disabled>確認裁切</button></div></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.4.1｜2026/10/15 18:57（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.4.2｜2026/10/15 19:05（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -299,14 +299,21 @@ for(const type of ['pointerup','pointercancel','lostpointercapture'])$('cropCanv
 function svgNode(tag,attrs){const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))n.setAttribute(k,String(v));$('gridOverlay').appendChild(n);return n;}
 function overlayText(value,x,y,width,size){if(value===null||value===undefined||value==='')return;const n=svgNode('text',{x,y,'text-anchor':'middle','dominant-baseline':'middle','font-size':size});n.textContent=String(value);const w=n.getComputedTextLength();if(w>width)n.setAttribute('font-size',String(size*width/w));}
 function fieldText(value,x,y,width,height,size){if(value===null||value===undefined||value==='')return;svgNode('rect',{x:x-width/2,y:y-height/2,width,height,fill:'#fffef3',rx:3});overlayText(value,x,y,width-10,size);}
+function weightChangeGrams(slot){
+ // actualGrams 是隊伍計分方向；圖卡使用實際體重增減，LOSS 必須反轉。
+ if(!Number.isSafeInteger(slot.actualGrams)||!['LOSS','GAIN'].includes(slot.goalType))return null;
+ const grams=slot.goalType==='LOSS'?-slot.actualGrams:slot.actualGrams;return Object.is(grams,-0)?0:grams;
+}
+function changeLabel(grams){return grams===null?'':grams>0?'+'+grams:grams<0?'−'+Math.abs(grams):'0';}
 function previewGrid(){
  if(!lastPage||saving||pageBusy||teamsBusy||!hasWorkAccess())return;
  $('gridOverlay').replaceChildren();$('roster').replaceChildren();$('gridDialog').showModal();
  const xs=[338,587,836],ys=[484,776,1068];
- for(const s of lastPage.slots){const row=document.createElement('li');row.textContent=s.occupied?previewName(s)+(s.actualKg===null?'：尚無完整成果':'：成果 '+s.actualKg+' 公斤'):'空位';$('roster').appendChild(row);if(!s.occupied)continue;
+ for(const s of lastPage.slots){const grams=weightChangeGrams(s);const row=document.createElement('li');row.textContent=s.occupied?previewName(s)+(grams===null?'：尚無完整成果':'：體重增減 '+changeLabel(grams)+' 克'):'空位';$('roster').appendChild(row);if(!s.occupied)continue;
   const x=xs[(s.slotIndex-1)%3],y=ys[Math.floor((s.slotIndex-1)/3)];
   const photo=photoPreviews.get(photoKey(lastPage.teamLapId,s.entryId));if(photo){const py=[244,535,827][Math.floor((s.slotIndex-1)/3)],id='photo-clip-'+s.slotIndex;const clip=svgNode('clipPath',{id});const rect=document.createElementNS('http://www.w3.org/2000/svg','rect');for(const [k,v]of Object.entries({x:x-105,y:py,width:210,height:210,rx:24}))rect.setAttribute(k,String(v));clip.appendChild(rect);svgNode('image',{href:photo,x:x-105,y:py,width:210,height:210,'clip-path':'url(#'+id+')',preserveAspectRatio:'xMidYMid meet'});}
-  overlayText(previewName(s),x,s.actualKg===null?y:y-8,210,s.actualKg===null?28:23);if(s.actualKg!==null)overlayText('成果 '+s.actualKg+' 公斤',x,y+13,210,16);
+  overlayText(previewName(s),x,y,210,28);
+  if(grams!==null){const top=[244,535,827][Math.floor((s.slotIndex-1)/3)];svgNode('rect',{x:x+2,y:top+9,width:96,height:36,rx:10,fill:'#fffef3','fill-opacity':0.95});overlayText(changeLabel(grams),x+50,top+27,84,27);}
  }
  fieldText(lastPage.teamName,520,1177,292,51,33);fieldText(lastPage.coachDisplayName,520,1253,292,51,33);fieldText(lastPage.lapNumber,879,1164,85,48,34);fieldText(lastPage.dayNumber,879,1219,85,48,34);fieldText(lastPage.totalActualKg,942,1274,135,43,29);
  $('gridCaption').textContent=lastPage.teamName+'｜'+lastPage.measuredDate+'｜已儲存成績；圖卡姓名與照片為本頁暫存預覽';
