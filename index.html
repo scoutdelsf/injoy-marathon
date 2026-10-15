@@ -27,7 +27,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.5.4｜更新：2026/10/15 20:28（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.5.5｜更新：2026/10/15 20:32（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
 <div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
 <div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
@@ -45,7 +45,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 <section class="area card" id="reviewCard" hidden aria-labelledby="reviewTitle"><h2 id="reviewTitle">教練申請審核</h2><p class="hint">僅超級管理者可審核；總監另行指定。</p><button id="reloadApplications" type="button" class="secondary">重新整理待審清單</button><p id="reviewStatus" role="status" aria-live="polite"></p><div id="applications"></div><button id="nextPage" type="button" class="secondary" hidden>下一頁</button></section>
 <dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少起始或當日量測時保持空白。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
 <dialog id="cropDialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">選手照片・1:1 裁切</h2><button id="cancelCrop" type="button" class="secondary">取消</button></div><p id="cropPerson"></p><p class="photo-note">本版僅預覽，不會上傳照片。照片初始完整置中；向左縮小、向右放大，拖曳可調位置。縮小後的空白會保留為白底。</p><label for="photoFile">選擇照片（JPEG、PNG、WebP，最大 10 MB）</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><p id="cropStatus" role="status" aria-live="polite"></p><canvas id="cropCanvas" class="crop-stage" width="720" height="720" aria-label="正方形裁切預覽，可拖曳照片；也可使用下方方向按鈕調整"></canvas><label for="cropZoom">縮小 ← 縮放 → 放大（<span id="cropZoomValue">100%</span>）</label><input id="cropZoom" type="range" min="0" max="100" step="1" value="50" disabled><div class="crop-controls"><button id="cropLeft" type="button" class="secondary" aria-label="照片向左移動" disabled>←</button><button id="cropUp" type="button" class="secondary" aria-label="照片向上移動" disabled>↑</button><button id="cropDown" type="button" class="secondary" aria-label="照片向下移動" disabled>↓</button><button id="cropRight" type="button" class="secondary" aria-label="照片向右移動" disabled>→</button><button id="resetCrop" type="button" class="secondary" disabled>重設位置</button><button id="confirmCrop" type="button" disabled>確認裁切</button></div></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.5.4｜2026/10/15 20:28（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.5.5｜2026/10/15 20:32（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -420,9 +420,16 @@ function setupKeyboardActions(){
  if(typeof window.matchMedia!=='function')return;
  const touch=window.matchMedia('(any-pointer:coarse)').matches||(typeof navigator!=='undefined'&&navigator.maxTouchPoints>0);if(!touch)return;
  const actions=$('measurementActions'),viewport=window.visualViewport;
- let baseline=Math.max(window.innerHeight||0,viewport?.height||0),pendingFocus=false,keyboardSeen=false,timer=null;
+ let baseline=Math.max(window.innerHeight||0,viewport?.height||0),pendingFocus=false,keyboardSeen=false,timer=null,sheetLock=null;
  const editable=()=>{const e=document.activeElement;if(!e||e.disabled||e.readOnly)return false;return e.isContentEditable||e.tagName==='TEXTAREA'||(e.tagName==='INPUT'&&!['button','submit','reset','checkbox','radio','file','range','color','hidden'].includes(e.type));};
- const showHidden=hide=>{actions.setAttribute('data-keyboard',hide?'open':'closed');actions.setAttribute('aria-hidden',String(hide));actions.inert=hide;};
+ function preserveSheetHeight(hide){
+  const sheet=$('measurementScroll');
+  if(hide&&!sheetLock&&sheet.className==='timeline-sheet'){
+   const height=sheet.getBoundingClientRect().height;
+   if(height>0){sheetLock={node:sheet,height:sheet.style.height||'',maxHeight:sheet.style.maxHeight||''};sheet.style.height=height+'px';sheet.style.maxHeight=height+'px';}
+  }else if(!hide&&sheetLock){sheetLock.node.style.height=sheetLock.height;sheetLock.node.style.maxHeight=sheetLock.maxHeight;sheetLock=null;}
+ }
+ const showHidden=hide=>{preserveSheetHeight(hide);actions.setAttribute('data-keyboard',hide?'open':'closed');actions.setAttribute('aria-hidden',String(hide));actions.inert=hide;};
  function update(){
   const focused=editable(),height=viewport?.height||window.innerHeight||baseline;
   if(!pendingFocus&&!keyboardSeen)baseline=Math.max(baseline,height,window.innerHeight||0);
