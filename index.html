@@ -24,7 +24,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 /* 保留操作列原高度，手機鍵盤展開時隱藏，避免浮到鍵盤上方或造成版面重排。 */
 .sticky-actions[data-keyboard="open"]{visibility:hidden;pointer-events:none}
 
-/* 1.6.5：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
+/* 1.6.7：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
 .timeline-sheet{--left:156px;--day:144px;--row:178px;background:#f5f2ee;border-color:#e5ded6;border-radius:14px}
 .timeline-sheet table{margin:0}
 .timeline-sheet th,.timeline-sheet td{padding:5px;vertical-align:top}
@@ -73,11 +73,13 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 }
 
 #gridDialog .dialog-head{gap:8px;flex-wrap:wrap}#gridDialog .dialog-head h2{margin-right:auto}#exportGrid{font-size:13px;padding:10px 12px}#downloadPng{display:inline-block;margin:0 0 10px;color:#a8352e;font-size:13px}
+#gridComposite{-webkit-touch-callout:default;user-select:auto;pointer-events:auto}
+.export-steps{display:grid;gap:10px;margin:12px 0}.export-step{padding:12px 14px;background:#faf6ef;border:1px solid #e8dfd2;border-radius:12px}.export-step h3{font-size:15px;margin:0 0 6px}.export-step .hint{font-size:12px;margin:6px 0 0}.export-choices{display:flex;gap:8px}.export-choices button{flex:1;margin:4px 0}#downloadPng{display:none}
 </style>
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.6.5｜更新：2026/10/16 11:15（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.6.7｜更新：2026/10/16 14:55（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
 <div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
 <div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
@@ -93,9 +95,9 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 <div id="entryPanel" hidden><p class="photo-note">姓名與照片按「儲存姓名與照片」保存為學員共用資料，跨隊、跨圈沿用；更新會套用本圈各隊，歷史圈保留原資料；體重與體脂按「儲存成績」。未儲存的照片與姓名在重新整理後會清除。</p><p class="hint">體重單位為公斤；體脂率可留空。空白體重不會刪除既有紀錄。</p><div id="timelineTools" class="timeline-tools" hidden><button id="timelineStart" type="button" class="secondary">前測</button><button id="timelinePrev" type="button" class="secondary">←</button><button id="timelineToday" type="button" class="secondary">今天</button><button id="timelineNext" type="button" class="secondary">→</button><strong id="timelineLabel" aria-live="polite"></strong></div><div id="measurementScroll" class="table-scroll" tabindex="0" role="region" aria-label="左側選手固定，右側日期可左右滑動"><table id="measurementTable"><thead id="measurementHead"><tr><th scope="col">選手</th><th scope="col">體重 kg</th><th scope="col">體脂率 %</th></tr></thead><tbody id="measurementRows"></tbody></table></div><p id="draftStatus" class="hint" role="status" aria-live="polite"></p><p id="profileStatus" class="hint" role="status" aria-live="polite"></p><div class="sticky-actions" id="measurementActions"><button id="saveProfiles" type="button" class="secondary" disabled>儲存姓名與照片</button><button id="submitMeasurements" type="button" disabled>儲存成績</button><button id="previewGrid" type="button" class="secondary" disabled>預覽九宮格</button><p id="saveStatus" role="status" aria-live="polite"></p></div></div>
 </section>
 <section class="area card" id="reviewCard" hidden aria-labelledby="reviewTitle"><h2 id="reviewTitle">教練申請審核</h2><p class="hint">僅超級管理者可審核；總監另行指定。</p><button id="reloadApplications" type="button" class="secondary">重新整理待審清單</button><p id="reviewStatus" role="status" aria-live="polite"></p><div id="applications"></div><button id="nextPage" type="button" class="secondary" hidden>下一頁</button></section>
-<dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="exportGrid" type="button">下載成果圖</button><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><p id="exportStatus" class="hint" role="status"></p><a id="downloadPng" hidden>再次下載 PNG</a><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg><img id="gridComposite" hidden alt="已合成的九宮格成果圖，可長按儲存"></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少有效起始或量測資料時保持空白。按「下載成果圖」輸出含照片、姓名、增減克數與累積成績的 PNG；合成後也可長按圖片儲存。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
+<dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="export-steps"><section class="export-step"><h3>步驟一：確認成果圖</h3><button id="exportGrid" type="button">確定下載成果圖</button><p class="hint">先確認預覽內容，再產生完整高解析圖片。</p></section><section class="export-step" id="exportStepTwo" hidden><h3>步驟二：選擇儲存方式</h3><div class="export-choices"><button id="saveLocalPng" type="button">存到本機</button><button id="sharePng" type="button" class="secondary" hidden>分享</button></div><a id="downloadPng" hidden aria-hidden="true" tabindex="-1"></a><p class="hint">LINE 內若無法下載，請長按下方成果圖儲存，或按「分享」。</p></section></div><p id="exportStatus" class="hint" role="status"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg><img id="gridComposite" hidden alt="已合成的九宮格成果圖，可長按儲存"></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少有效起始或量測資料時保持空白。按「確定下載成果圖」完成合成，再選「存到本機」或「分享」。原圖為 2346 × 2682，不需螢幕截圖。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
 <dialog id="cropDialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">選手照片・1:1 裁切</h2><button id="cancelCrop" type="button" class="secondary">取消</button></div><p id="cropPerson"></p><p class="photo-note">確認裁切後，還需按「儲存姓名與照片」才會上傳保存。照片初始完整置中；向左縮小、向右放大，拖曳可調位置。縮小後的空白會保留為白底。</p><label for="photoFile">選擇照片（JPEG、PNG、WebP，最大 10 MB）</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><p id="cropStatus" role="status" aria-live="polite"></p><canvas id="cropCanvas" class="crop-stage" width="720" height="720" aria-label="正方形裁切預覽，可拖曳照片；也可使用下方方向按鈕調整"></canvas><label for="cropZoom">縮小 ← 縮放 → 放大（<span id="cropZoomValue">100%</span>）</label><input id="cropZoom" type="range" min="0" max="100" step="1" value="50" disabled><div class="crop-controls"><button id="cropLeft" type="button" class="secondary" aria-label="照片向左移動" disabled>←</button><button id="cropUp" type="button" class="secondary" aria-label="照片向上移動" disabled>↑</button><button id="cropDown" type="button" class="secondary" aria-label="照片向下移動" disabled>↓</button><button id="cropRight" type="button" class="secondary" aria-label="照片向右移動" disabled>→</button><button id="resetCrop" type="button" class="secondary" disabled>重設位置</button><button id="confirmCrop" type="button" disabled>確認裁切</button></div></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.6.5｜2026/10/16 11:15（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.6.7｜2026/10/16 14:55（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -187,8 +189,8 @@ async function callBackend(action,payload){
     return data;
   });
 }
-let gridExportUrl='',gridExportGeneration=0,gridExportBusy=false;
-function resetGridExport(){gridExportGeneration++;gridExportBusy=false;if(gridExportUrl){URL.revokeObjectURL(gridExportUrl);gridExportUrl='';}$('gridComposite').hidden=true;$('gridComposite').removeAttribute?.('src');$('gridBackground').hidden=false;$('gridOverlay').removeAttribute?.('hidden');$('downloadPng').hidden=true;$('downloadPng').removeAttribute?.('href');$('exportGrid').disabled=false;busyText('exportStatus','');}
+let gridExportUrl='',gridExportGeneration=0,gridExportBusy=false,gridExportFile=null,gridShareBusy=false;
+function resetGridExport(){$('exportStepTwo').hidden=true;gridExportGeneration++;gridExportBusy=false;gridExportFile=null;gridShareBusy=false;$('sharePng').hidden=true;$('sharePng').disabled=false;if(gridExportUrl){URL.revokeObjectURL(gridExportUrl);gridExportUrl='';}$('gridComposite').hidden=true;$('gridComposite').removeAttribute?.('src');$('gridBackground').hidden=false;$('gridOverlay').removeAttribute?.('hidden');$('downloadPng').hidden=true;$('downloadPng').removeAttribute?.('href');$('exportGrid').disabled=false;busyText('exportStatus','');}
 function closeGrid(){resetGridExport();if($('gridDialog').open)$('gridDialog').close();$('gridOverlay').replaceChildren();$('roster').replaceChildren();}
 function clearWork(){profilesReady=false;savedPhotos.clear();profileRecords.clear();timelinePages=null;timelineHeads=[];$('timelineTools').hidden=true;cancelPhotoCrop();requestGeneration++;lastPage=null;inputs=[];operationId='';closeGrid();$('entryPanel').hidden=true;$('measurementRows').replaceChildren();}
 function hideAccount(){
@@ -512,9 +514,25 @@ function gridExportSvg(){
  for(const text of svg.querySelectorAll('text')){text.setAttribute('font-family','system-ui, -apple-system, "Noto Sans TC", sans-serif');text.setAttribute('font-weight','800');if(!text.getAttribute('fill'))text.setAttribute('fill','#29221d');}
  return new XMLSerializer().serializeToString(svg);
 }
+function gridBlobDataUrl(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(Error('圖片讀取失敗，請重新產生。'));reader.readAsDataURL(blob);});}
+async function shareGridPng(){
+ if(!gridExportFile||gridShareBusy)return;
+ const file=gridExportFile,generation=gridExportGeneration;
+ try{
+  if(!navigator.share||!navigator.canShare||!navigator.canShare({files:[file]})){
+   busyText('exportStatus','此瀏覽器不支援檔案分享。請長按下方合成成果圖，選擇儲存圖片；也可試「存到本機」。若 LINE 未提供儲存選項，請用右上角選單在 Safari／Chrome 開啟後重新產生。');
+   $('gridComposite').scrollIntoView?.({block:'center',behavior:'smooth'});return;
+  }
+  gridShareBusy=true;$('sharePng').disabled=true;
+  // Invoke synchronously from the user's click; image generation is already finished.
+  await navigator.share({files:[file]});
+  if(generation===gridExportGeneration)busyText('exportStatus','已交由系統處理，請到你選擇的相簿、檔案或應用程式確認。');
+ }catch(err){if(generation===gridExportGeneration)busyText('exportStatus',err.name==='AbortError'?'已取消或未選擇儲存位置，可再次按「分享」。':'此瀏覽器未能開啟分享選單。請長按下方合成圖片儲存，或使用「存到本機」。');}
+ finally{if(generation===gridExportGeneration){gridShareBusy=false;$('sharePng').disabled=false;}}
+}
 async function exportGridPng(){
  if(gridExportBusy||!lastPage||!$('gridDialog').open||saving||pageBusy||teamsBusy||!hasWorkAccess())return;
- gridExportBusy=true;const generation=++gridExportGeneration;const teamName=lastPage.teamName||'小隊',lap=lastPage.lapNumber,date=lastPage.measuredDate;let svgUrl='';
+ resetGridExport();gridExportBusy=true;const generation=++gridExportGeneration;const teamName=lastPage.teamName||'小隊',lap=lastPage.lapNumber,date=lastPage.measuredDate;let svgUrl='';
  $('exportGrid').disabled=true;busyText('exportStatus','正在合成高解析成果圖…',true);
  try{
   if(document.fonts?.ready)await document.fonts.ready;
@@ -526,16 +544,20 @@ async function exportGridPng(){
   context.fillStyle='#ffffff';context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(background,0,0,canvas.width,canvas.height);context.drawImage(overlay,0,0,canvas.width,canvas.height);
   const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('圖片輸出失敗，請重試。')),'image/png'));
   if(generation!==gridExportGeneration)return;
+  const dataUrl=await gridBlobDataUrl(blob);if(generation!==gridExportGeneration)return;
   if(gridExportUrl)URL.revokeObjectURL(gridExportUrl);gridExportUrl=URL.createObjectURL(blob);
-  const link=$('downloadPng');link.href=gridExportUrl;link.download=('InJoy_第'+lap+'圈_'+teamName+'_'+date).replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_')+'.png';link.hidden=false;
-  const composite=$('gridComposite');await new Promise((resolve,reject)=>{composite.onload=resolve;composite.onerror=()=>reject(Error('已合成圖片，但預覽無法顯示；請使用下載連結。'));composite.src=gridExportUrl;});
+  const link=$('downloadPng');link.href=gridExportUrl;link.download=('InJoy_第'+lap+'圈_'+teamName+'_'+date).replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_')+'.png';link.hidden=true;
+  const composite=$('gridComposite');await new Promise((resolve,reject)=>{composite.onload=resolve;composite.onerror=()=>reject(Error('已合成圖片，但預覽無法顯示；請使用下載連結。'));composite.src=dataUrl;});
   if(generation!==gridExportGeneration)return;
-  composite.hidden=false;$('gridBackground').hidden=true;$('gridOverlay').setAttribute('hidden','');link.click();
-  busyText('exportStatus','已合成 2346 × 2682 PNG。若手機未自動下載，可長按下方成果圖儲存，或點「再次下載 PNG」。');
+  gridExportFile=typeof File==='function'?new File([blob],link.download,{type:'image/png'}):null;
+  $('exportStepTwo').hidden=false;$('sharePng').hidden=false;$('sharePng').disabled=!gridExportFile;composite.hidden=false;$('gridBackground').hidden=true;$('gridOverlay').setAttribute('hidden','');
+  busyText('exportStatus','步驟一完成：已合成 2346 × 2682 PNG。請在步驟二選擇「存到本機」或「分享」。');
  }catch(err){if(generation===gridExportGeneration)busyText('exportStatus',err.name==='SecurityError'?'瀏覽器禁止匯出跨來源圖片，請確認底圖與網頁放在同一個網站。':err.message||'圖片輸出失敗，請重試。');}
  finally{if(svgUrl)URL.revokeObjectURL(svgUrl);if(generation===gridExportGeneration){gridExportBusy=false;$('exportGrid').disabled=false;$('exportStatus').setAttribute('data-busy','false');}}
 }
 $('exportGrid').addEventListener('click',exportGridPng);
+$('sharePng').addEventListener('click',shareGridPng);
+$('saveLocalPng').addEventListener('click',()=>{if(!gridExportUrl||$('exportStepTwo').hidden)return;$('downloadPng').click();busyText('exportStatus','已嘗試下載。若 LINE 內沒有反應，請長按下方完整成果圖儲存，或按「分享」。');});
 $('gridDialog').addEventListener('close',resetGridExport);
 
 function imageFailed(){$('gridImage').hidden=true;$('gridCaption').textContent='底圖無法讀取，請確認injoy-grid-square-v1.png與index.html在同一層；完整名單仍可查看。';}
