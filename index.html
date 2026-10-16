@@ -24,7 +24,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 /* 保留操作列原高度，手機鍵盤展開時隱藏，避免浮到鍵盤上方或造成版面重排。 */
 .sticky-actions[data-keyboard="open"]{visibility:hidden;pointer-events:none}
 
-/* 1.6.4：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
+/* 1.6.5：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
 .timeline-sheet{--left:156px;--day:144px;--row:178px;background:#f5f2ee;border-color:#e5ded6;border-radius:14px}
 .timeline-sheet table{margin:0}
 .timeline-sheet th,.timeline-sheet td{padding:5px;vertical-align:top}
@@ -77,11 +77,11 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.6.4｜更新：2026/10/16 09:00（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.6.5｜更新：2026/10/16 11:15（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
 <div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
 <div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
-<div class="card" id="loginCard"><h3>登入狀態</h3><p id="status" role="status" aria-live="polite">請使用 LINE 帳號登入。</p><button id="login" type="button">LINE 登入</button><button id="refresh" type="button" class="secondary" hidden>重新確認權限</button><button id="logout" type="button" class="secondary" hidden>登出</button></div>
+<div class="card" id="loginCard"><h3>登入狀態</h3><p id="status" role="status" aria-live="polite">請使用 LINE 帳號登入。</p><button id="login" type="button">LINE 登入</button><a id="liffFallback" href="https://liff.line.me/2012022227-AgkXKQoz" hidden>改用 LINE 專用連結開啟</a><button id="refresh" type="button" class="secondary" hidden>重新確認權限</button><button id="logout" type="button" class="secondary" hidden>登出</button></div>
 <div class="card" id="account" hidden><h3>身分資訊</h3><p id="displayName"></p><div id="roles"></div><details class="account-details"><summary>帳號與權限</summary><p id="access" class="hint"></p><p id="userId" class="hint wrap"></p></details></div>
 </div></section>
 <section class="area card" id="applyCard" aria-labelledby="applyTitle"><h2 id="applyTitle">申請成為教練</h2><p id="applyStatus" role="status" aria-live="polite">登入後即可申請，核准前不能查看選手資料。</p><button id="apply" type="button" disabled>申請教練資格</button></section>
@@ -95,7 +95,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 <section class="area card" id="reviewCard" hidden aria-labelledby="reviewTitle"><h2 id="reviewTitle">教練申請審核</h2><p class="hint">僅超級管理者可審核；總監另行指定。</p><button id="reloadApplications" type="button" class="secondary">重新整理待審清單</button><p id="reviewStatus" role="status" aria-live="polite"></p><div id="applications"></div><button id="nextPage" type="button" class="secondary" hidden>下一頁</button></section>
 <dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="exportGrid" type="button">下載成果圖</button><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><p id="exportStatus" class="hint" role="status"></p><a id="downloadPng" hidden>再次下載 PNG</a><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg><img id="gridComposite" hidden alt="已合成的九宮格成果圖，可長按儲存"></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少有效起始或量測資料時保持空白。按「下載成果圖」輸出含照片、姓名、增減克數與累積成績的 PNG；合成後也可長按圖片儲存。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
 <dialog id="cropDialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">選手照片・1:1 裁切</h2><button id="cancelCrop" type="button" class="secondary">取消</button></div><p id="cropPerson"></p><p class="photo-note">確認裁切後，還需按「儲存姓名與照片」才會上傳保存。照片初始完整置中；向左縮小、向右放大，拖曳可調位置。縮小後的空白會保留為白底。</p><label for="photoFile">選擇照片（JPEG、PNG、WebP，最大 10 MB）</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><p id="cropStatus" role="status" aria-live="polite"></p><canvas id="cropCanvas" class="crop-stage" width="720" height="720" aria-label="正方形裁切預覽，可拖曳照片；也可使用下方方向按鈕調整"></canvas><label for="cropZoom">縮小 ← 縮放 → 放大（<span id="cropZoomValue">100%</span>）</label><input id="cropZoom" type="range" min="0" max="100" step="1" value="50" disabled><div class="crop-controls"><button id="cropLeft" type="button" class="secondary" aria-label="照片向左移動" disabled>←</button><button id="cropUp" type="button" class="secondary" aria-label="照片向上移動" disabled>↑</button><button id="cropDown" type="button" class="secondary" aria-label="照片向下移動" disabled>↓</button><button id="cropRight" type="button" class="secondary" aria-label="照片向右移動" disabled>→</button><button id="resetCrop" type="button" class="secondary" disabled>重設位置</button><button id="confirmCrop" type="button" disabled>確認裁切</button></div></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.6.4｜2026/10/16 09:00（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.6.5｜2026/10/16 11:15（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -221,17 +221,36 @@ async function loadWorkspace(){
  if(seq!==workspaceRequest||token!==sessionToken)return;
  if(permissions?.isSuperAdmin)await loadApplications(0);syncControls();
 }
+const LOGIN_RECOVERY_KEY='injoy:liff:recovery:'+CONFIG.liffId;
+function clearLoginRecovery(){try{sessionStorage.removeItem(LOGIN_RECOVERY_KEY);}catch(_){}}
+function recoverLineLogin(err){
+ if(!['LINE_TOKEN_VERIFICATION_FAILED','TOKEN_EXPIRED','INVALID_ID_TOKEN','ID_TOKEN_MISSING'].includes(err.code))return false;
+ $('liffFallback').hidden=false;
+ // Only external browsers support liff.login(). Persist the limit across OAuth redirects.
+ if(liff.isInClient())return false;
+ try{
+  if(sessionStorage.getItem(LOGIN_RECOVERY_KEY))return false;
+  sessionStorage.setItem(LOGIN_RECOVERY_KEY,'1');
+  if(sessionStorage.getItem(LOGIN_RECOVERY_KEY)!=='1')return false;
+ }catch(_){return false;} // Without durable storage, automatic retry could loop.
+ try{
+  liff.logout();
+  status('正在更新 LINE 登入憑證，請完成重新登入…');
+  liff.login({redirectUri:CONFIG.pageUrl});
+  return true;
+ }catch(_){return false;}
+}
 async function login(){
  if(authBusy||sessionToken)return;if(!window.liff){status('LINE登入元件未載入，請重新整理。');return;}
  authBusy=true;authOperation='login';syncControls();status('正在連接LINE登入…');
  try{
   if(!initPromise)initPromise=liff.init({liffId:CONFIG.liffId}).catch(err=>{initPromise=null;throw err;});await initPromise;
   if(!liff.isLoggedIn()){liff.login({redirectUri:CONFIG.pageUrl});return;}
-  const idToken=liff.getIDToken();if(!idToken)throw new Error('沒有取得LINE登入憑證，請確認openid權限。');
+  const idToken=liff.getIDToken();if(!idToken){const err=new Error('沒有取得LINE登入憑證，請確認openid權限。');err.code='ID_TOKEN_MISSING';throw err;}
   // LIFF初始化及登入完成後才清理網址；舊票據參數不再參與申請。
   if(location.search||location.hash)history.replaceState(null,'',CONFIG.pageUrl);
-  const data=await callBackend('login',{idToken});sessionToken=data.sessionToken;render(data);await loadWorkspace();
- }catch(err){hideAccount();handleError(err);}finally{authBusy=false;authOperation='';$('status').setAttribute('data-busy','false');syncControls();}
+  const data=await callBackend('login',{idToken});clearLoginRecovery();$('liffFallback').hidden=true;sessionToken=data.sessionToken;render(data);await loadWorkspace();
+ }catch(err){hideAccount();if(!recoverLineLogin(err)){handleError(err);$('liffFallback').hidden=false;}}finally{authBusy=false;authOperation='';$('status').setAttribute('data-busy','false');syncControls();}
 }
 async function refreshPermissions(){if(!sessionToken)return;saveDraft();const data=await callBackend('whoami',{sessionToken});render(data);await loadWorkspace();}
 async function applyCoach(){
