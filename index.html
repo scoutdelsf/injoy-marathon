@@ -24,7 +24,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 /* 保留操作列原高度，手機鍵盤展開時隱藏，避免浮到鍵盤上方或造成版面重排。 */
 .sticky-actions[data-keyboard="open"]{visibility:hidden;pointer-events:none}
 
-/* 1.7.1：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
+/* 1.7.2：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
 .timeline-sheet{--left:156px;--day:144px;--row:178px;background:#f5f2ee;border-color:#e5ded6;border-radius:14px}
 .timeline-sheet table{margin:0}
 .timeline-sheet th,.timeline-sheet td{padding:5px;vertical-align:top}
@@ -81,7 +81,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.7.1｜更新：2026/10/16（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.7.2｜更新：2026/10/17（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
 <div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
 <div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
@@ -100,7 +100,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 <dialog id="teamManager" aria-labelledby="managerTitle"><div class="dialog-head"><h2 id="managerTitle">隊伍與九宮格名單</h2><button id="managerCancel" type="button" class="secondary">關閉</button></div><p id="managerLap" class="hint"></p><p id="managerStatus" role="status" aria-live="polite"></p><fieldset id="managerFields"><label for="managerTeamName">隊伍名稱</label><input id="managerTeamName" maxlength="80"><div id="managerCoachWrap"><p id="managerCoachLabel">隊伍教練（可勾選 1～3 位）</p><div id="managerCoach" role="group" aria-labelledby="managerCoachLabel"></div><p id="managerCoachCount" class="hint" aria-live="polite"></p></div><section id="managerRosterSection"><h3>九宮格名單</h3><p class="hint">同一學員可參加不同隊伍。已有量測者可換格位，但不能直接換人、移除或更改增減重類別。新增前請先搜尋，避免重複建檔。</p><div id="managerRoster"></div></section></fieldset><div class="manager-footer"><button id="managerSave" type="button">儲存隊伍與名單</button></div></dialog>
 <dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="export-steps"><section class="export-step"><h3>步驟一：確認成果圖</h3><button id="exportGrid" type="button">確定下載成果圖</button><p class="hint">先確認預覽內容，再產生完整高解析圖片。</p></section><section class="export-step" id="exportStepTwo" hidden><h3>步驟二：選擇儲存方式</h3><div class="export-choices"><button id="saveLocalPng" type="button">存到本機</button><button id="sharePng" type="button" class="secondary" hidden>分享</button></div><a id="downloadPng" hidden aria-hidden="true" tabindex="-1"></a><p class="hint">LINE 內若無法下載，請長按下方成果圖儲存，或按「分享」。</p></section></div><p id="exportStatus" class="hint" role="status"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg><img id="gridComposite" hidden alt="已合成的九宮格成果圖，可長按儲存"></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少有效起始或量測資料時保持空白。按「確定下載成果圖」完成合成，再選「存到本機」或「分享」。原圖為 2346 × 2682，不需螢幕截圖。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
 <dialog id="cropDialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">選手照片・1:1 裁切</h2><button id="cancelCrop" type="button" class="secondary">取消</button></div><p id="cropPerson"></p><p class="photo-note">確認裁切後，還需按「儲存姓名與照片」才會上傳保存。照片初始完整置中；向左縮小、向右放大，拖曳可調位置。縮小後的空白會保留為白底。</p><label for="photoFile">選擇照片（JPEG、PNG、WebP，最大 10 MB）</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><p id="cropStatus" role="status" aria-live="polite"></p><canvas id="cropCanvas" class="crop-stage" width="720" height="720" aria-label="正方形裁切預覽，可拖曳照片；也可使用下方方向按鈕調整"></canvas><label for="cropZoom">縮小 ← 縮放 → 放大（<span id="cropZoomValue">100%</span>）</label><input id="cropZoom" type="range" min="0" max="100" step="1" value="50" disabled><div class="crop-controls"><button id="cropLeft" type="button" class="secondary" aria-label="照片向左移動" disabled>←</button><button id="cropUp" type="button" class="secondary" aria-label="照片向上移動" disabled>↑</button><button id="cropDown" type="button" class="secondary" aria-label="照片向下移動" disabled>↓</button><button id="cropRight" type="button" class="secondary" aria-label="照片向右移動" disabled>→</button><button id="resetCrop" type="button" class="secondary" disabled>重設位置</button><button id="confirmCrop" type="button" disabled>確認裁切</button></div></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.7.1｜2026/10/16（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.7.2｜2026/10/17（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -116,11 +116,37 @@ const photoPreviews=new Map(),namePreviews=new Map(),savedPhotos=new Map(),profi
 let profilesReady=false;
 let crop=null,photoLoadSequence=0;
 let timelinePages=null,timelineHeads=[],timelineOperations={};
+// Local snapshots contain server responses only; never tokens or unsaved inputs.
+let cachedView=false,cacheEpoch=0,currentDirectoryLap='';
+function cacheStore(mode,operation){return new Promise(resolve=>{
+ let settled=false,db;const finish=v=>{if(!settled){settled=true;resolve(v);}};
+ try{const open=indexedDB.open('injoy-team-cache-v1',1);
+ open.onupgradeneeded=()=>open.result.createObjectStore('teams');
+ open.onerror=()=>finish(null);open.onblocked=()=>finish(null);
+ open.onsuccess=()=>{db=open.result;try{const tx=db.transaction('teams',mode);let value=null;const req=operation(tx.objectStore('teams'));if(req)req.onsuccess=()=>{value=req.result;};tx.oncomplete=()=>{db.close();finish(value);};tx.onerror=tx.onabort=()=>{db.close();finish(null);};}catch(_){db.close();finish(null);}};
+ }catch(_){finish(null);}
+ });}
+function clearAccountCache(uid=identity?.userId){cacheEpoch++;if(uid)void cacheStore('readwrite',store=>store.delete(uid));}
+function validCachedPage(c,query,uid){return c&&c.version===1&&c.uid===uid&&c.lapId===currentDirectoryLap&&c.teamLapId===query.teamLapId&&c.date===query.measuredDate&&Date.now()-c.savedAt>=0&&Date.now()-c.savedAt<86400000&&c.page?.canManage===true&&c.page.timelineVersion==='1.0.0'&&c.page.slots?.length===9;}
+function persistTeamCache(){
+ if(cachedView||!identity||!lastPage||lastPage.canManage!==true)return;
+ const uid=identity.userId,epoch=cacheEpoch;
+ const record=JSON.parse(JSON.stringify({version:1,uid,lapId:lastPage.lapId,teamLapId:lastPage.teamLapId,date:$('measuredDate').value,savedAt:Date.now(),page:{...lastPage,timeline:timelinePages},profiles:profilesReady?Array.from(profileRecords.values()):[]}));
+ void cacheStore('readwrite',store=>{if(epoch===cacheEpoch&&uid===identity?.userId)return store.put(record,uid);});
+}
+function showCachedPage(c){
+ cachedView=true;lastPage=c.page;timelinePages=Array.isArray(lastPage.timeline)&&lastPage.timeline.length===11?lastPage.timeline:null;
+ for(const r of c.profiles||[])if(r.photoData)savedPhotos.set(photoKey(lastPage.teamLapId,r.entryId),r.photoData);
+ renderInputs();$('entryPanel').hidden=false;$('calendarStatus').textContent='本機快取・'+new Date(c.savedAt).toLocaleString('zh-TW')+'｜更新完成前僅供查看';
+ busyText('teamStatus','先顯示上次資料，正在背景更新…',true);syncControls();
+}
+
 function hasWorkAccess(){return !!sessionToken&&!!(permissions?.isCoach||permissions?.isCurrentDirector||permissions?.isSuperAdmin);}
 function busyText(id,text,busy=false){$(id).textContent=text;$(id).setAttribute('data-busy',String(busy));}
 function status(text){busyText('status',text,authBusy);}
 function syncControls(){
  const busy=authBusy||teamsBusy||pageBusy||saving;
+ const editingBlocked=busy||cachedView;
  $('login').hidden=!!sessionToken;$('login').disabled=authBusy;$('login').textContent=authBusy?'登入中…':'LINE 登入';
  $('refresh').hidden=!sessionToken;$('logout').hidden=!sessionToken;
  $('refresh').disabled=busy||applyBusy||reviewBusy;$('refresh').textContent=authOperation==='refresh'?'確認中…':'更新權限';
@@ -130,13 +156,13 @@ function syncControls(){
  $('createTeam').disabled=busy||!hasWorkAccess();$('manageTeam').disabled=busy||!hasWorkAccess()||!$('teamSelect').value;
  $('reloadTeams').disabled=busy||!hasWorkAccess();$('reloadTeams').textContent=teamsBusy?'讀取小隊中…':'重新讀取小隊';
  $('reloadPage').disabled=busy||!$('teamSelect').value;$('reloadPage').textContent=pageBusy?'讀取資料中…':'重新讀取已存資料';
- $('submitMeasurements').disabled=busy||!lastPage?.writeEnabled||!changedRows().length;
- $('submitMeasurements').textContent=saving?'儲存中，請稍候…':'儲存成績';$('previewGrid').disabled=busy||!lastPage;
- for(const item of inputs){item.weight.disabled=busy||item.writeEnabled===false;item.fat.disabled=busy||item.writeEnabled===false;item.nameInput.disabled=busy||!hasWorkAccess()||lastPage?.canManage===false;}
+ $('submitMeasurements').disabled=editingBlocked||!lastPage?.writeEnabled||!changedRows().length;
+ $('submitMeasurements').textContent=saving?'儲存中，請稍候…':'儲存成績';$('previewGrid').disabled=editingBlocked||!lastPage||!profilesReady;
+ for(const item of inputs){item.weight.disabled=editingBlocked||item.writeEnabled===false;item.fat.disabled=editingBlocked||item.writeEnabled===false;item.nameInput.disabled=editingBlocked||!profilesReady||!hasWorkAccess()||lastPage?.canManage===false;}
  for(const id of ['timelineStart','timelineToday','timelinePrev','timelineNext'])$(id).disabled=busy;
- if(timelinePages)$('submitMeasurements').disabled=busy||!changedRows().length;
- for(const button of $('measurementRows').querySelectorAll('button'))button.disabled=busy||!hasWorkAccess()||lastPage?.canManage===false;
- $('saveProfiles').disabled=busy||lastPage?.canManage===false||!profilesReady||!dirtyProfiles().length;
+ if(timelinePages)$('submitMeasurements').disabled=editingBlocked||!changedRows().length;
+ for(const button of $('measurementRows').querySelectorAll('button'))button.disabled=editingBlocked||!profilesReady||!hasWorkAccess()||lastPage?.canManage===false;
+ $('saveProfiles').disabled=editingBlocked||lastPage?.canManage===false||!profilesReady||!dirtyProfiles().length;
  $('reloadApplications').disabled=authBusy||reviewBusy;$('nextPage').disabled=authBusy||reviewBusy;
  for(const button of $('applications').querySelectorAll('button'))button.disabled=authBusy||reviewBusy;
  updateAccountRail();
@@ -196,8 +222,9 @@ async function callBackend(action,payload){
 let gridExportUrl='',gridExportGeneration=0,gridExportBusy=false,gridExportFile=null,gridShareBusy=false;
 function resetGridExport(){$('exportStepTwo').hidden=true;gridExportGeneration++;gridExportBusy=false;gridExportFile=null;gridShareBusy=false;$('sharePng').hidden=true;$('sharePng').disabled=false;if(gridExportUrl){URL.revokeObjectURL(gridExportUrl);gridExportUrl='';}$('gridComposite').hidden=true;$('gridComposite').removeAttribute?.('src');$('gridBackground').hidden=false;$('gridOverlay').removeAttribute?.('hidden');$('downloadPng').hidden=true;$('downloadPng').removeAttribute?.('href');$('exportGrid').disabled=false;busyText('exportStatus','');}
 function closeGrid(){resetGridExport();if($('gridDialog').open)$('gridDialog').close();$('gridOverlay').replaceChildren();$('roster').replaceChildren();}
-function clearWork(){profilesReady=false;savedPhotos.clear();profileRecords.clear();timelinePages=null;timelineHeads=[];$('timelineTools').hidden=true;cancelPhotoCrop();requestGeneration++;lastPage=null;inputs=[];operationId='';closeGrid();$('entryPanel').hidden=true;$('measurementRows').replaceChildren();}
+function clearWork(){cachedView=false;profilesReady=false;savedPhotos.clear();profileRecords.clear();timelinePages=null;timelineHeads=[];$('timelineTools').hidden=true;cancelPhotoCrop();requestGeneration++;lastPage=null;inputs=[];operationId='';closeGrid();$('entryPanel').hidden=true;$('measurementRows').replaceChildren();}
 function hideAccount(){
+ clearAccountCache();
  managerClose(true);
  photoPreviews.clear();namePreviews.clear();savedPhotos.clear();profileRecords.clear();profileDraftVersions.clear();profileOperations.clear();photoRemovals.clear();profilesReady=false;cancelPhotoCrop();workspaceRequest++;reviewRequest++;requestGeneration++;sessionToken='';identity=null;permissions=null;applicationState='none';
  teamsBusy=false;pageBusy=false;clearWork();$('account').hidden=true;$('teamCard').hidden=true;$('reviewCard').hidden=true;$('applyCard').hidden=false;
@@ -214,7 +241,7 @@ function render(data){
  for(const label of labels){const node=document.createElement('span');node.className='badge';node.textContent=label;$('roles').appendChild(node);}
  $('access').textContent=hasWorkAccess()?'可選擇隊伍並登錄成績；表揚選取與正式輸出限當屆總監。':'可以申請成為教練，核准後才開放選手資料。';
  $('teamCard').hidden=!hasWorkAccess();$('applyCard').hidden=hasWorkAccess();$('reviewCard').hidden=!permissions.isSuperAdmin;
- if(!hasWorkAccess()){clearWork();placeholder('尚未取得教練資格');}if(!permissions.isSuperAdmin)$('applications').replaceChildren();status('已登入');syncControls();
+ if(!hasWorkAccess()){clearAccountCache();clearWork();placeholder('尚未取得教練資格');}if(!permissions.isSuperAdmin)$('applications').replaceChildren();status('已登入');syncControls();
 }
 async function loadWorkspace(){
  const seq=++workspaceRequest,token=sessionToken;
@@ -268,12 +295,13 @@ async function applyCoach(){
 }
 function placeholder(text){const node=document.createElement('option');node.value='';node.textContent=text;$('teamSelect').replaceChildren(node);$('teamSelect').value='';}
 async function loadTeams(preferredTeamId=''){
- if(!hasWorkAccess())return;saveDraft();const previous=preferredTeamId||$('teamSelect').value,token=sessionToken;
+ if(!hasWorkAccess())return;saveDraft();let previous=preferredTeamId||$('teamSelect').value;const token=sessionToken;let recentCache=null;void cacheStore('readonly',store=>store.get(identity?.userId)).then(c=>{recentCache=c;});
  clearWork();const generation=requestGeneration;teamsBusy=true;placeholder('讀取小隊中…');syncControls();busyText('teamStatus','正在讀取當屆小隊…',true);
  try{const data=await callBackend('teamDirectory',{sessionToken:token});if(generation!==requestGeneration||token!==sessionToken)return;
-  if(!Array.isArray(data?.teams))throw new Error('小隊資料格式不正確。');$('teamSelect').replaceChildren();
+  currentDirectoryLap=data?.lapId||'';if(!Array.isArray(data?.teams))throw new Error('小隊資料格式不正確。');$('teamSelect').replaceChildren();
   for(const team of data.teams){const option=document.createElement('option');option.value=team.teamLapId;option.textContent=team.teamName||'未命名小隊';$('teamSelect').appendChild(option);}
   if(!data.teams.length){placeholder('當屆尚無小隊');busyText('teamStatus','當屆尚未設定小隊。');return;}
+  if(!previous&&recentCache?.uid===identity?.userId&&recentCache.lapId===currentDirectoryLap&&Date.now()-recentCache.savedAt<86400000)previous=recentCache.teamLapId;
   $('teamSelect').value=data.teams.some(t=>t.teamLapId===previous)?previous:data.teams[0].teamLapId;
   await loadPage();
  }catch(err){if(token===sessionToken){placeholder('讀取失敗，請重試');handleError(err,'teamStatus');}}
@@ -285,12 +313,13 @@ async function loadPage(discard=false){
  if(discard&&lastPage)for(const s of lastPage.slots){const key=photoKey(lastPage.teamLapId,s.entryId);namePreviews.delete(key);photoPreviews.delete(key);photoRemovals.delete(key);profileDraftVersions.delete(key);profileOperations.delete(key);}
  if(discard)removeDraft();else saveDraft();
  const query={teamLapId:$('teamSelect').value,measuredDate:$('measuredDate').value,phase:'AUTO',includeTimeline:true};
- clearWork();const seq=requestGeneration,token=sessionToken;pageBusy=true;syncControls();busyText('teamStatus','正在讀取名單與已存成績…',true);
+ clearWork();const seq=requestGeneration,token=sessionToken,uid=identity?.userId;let freshArrived=false;pageBusy=true;
+ if(!discard)void cacheStore('readonly',store=>store.get(uid)).then(c=>{if(!freshArrived&&seq===requestGeneration&&token===sessionToken&&validCachedPage(c,query,uid)){try{showCachedPage(c);}catch(_){clearWork();pageBusy=false;clearAccountCache();void loadPage(true);}}});syncControls();busyText('teamStatus','正在讀取名單與已存成績…',true);
  try{const data=await callBackend('measurementPage',{sessionToken:token,query});if(seq!==requestGeneration||token!==sessionToken)return;
   if(data?.teamLapId!==query.teamLapId||(data.timelineVersion!=='1.0.0')||!Array.isArray(data.slots)||data.slots.length!==9||data.slots.some((s,i)=>s.slotIndex!==i+1))throw new Error('成績頁面資料格式不正確，請重新讀取。');
-  lastPage=data;timelinePages=Array.isArray(data.timeline)&&data.timeline.length===11?data.timeline:null;timelineOperations={};await loadEntryProfiles(token,seq);if(seq!==requestGeneration||token!==sessionToken)return;renderInputs();restoreDraft();$('calendarStatus').textContent=data.blockedReason||('起始量測：'+data.startMeasurementDate+'｜決賽量測：'+data.finishMeasurementDate);
+  freshArrived=true;cachedView=false;savedPhotos.clear();lastPage=data;timelinePages=Array.isArray(data.timeline)&&data.timeline.length===11?data.timeline:null;timelineOperations={};for(const page of timelinePages||[])page.canManage=data.canManage;renderInputs();restoreDraft();persistTeamCache();void loadEntryProfiles(token,seq).then(()=>{if(seq===requestGeneration&&token===sessionToken){refreshPhotoInputs();persistTeamCache();}});$('calendarStatus').textContent=data.blockedReason||('起始量測：'+data.startMeasurementDate+'｜決賽量測：'+data.finishMeasurementDate);
   $('entryPanel').hidden=false;busyText('teamStatus','已載入 '+data.rosterCount+' 位參賽者，'+(9-data.rosterCount)+' 個空位。');busyText('saveStatus','');
- }catch(err){if(seq===requestGeneration&&token===sessionToken){handleError(err,'teamStatus');if(err.code==='COACH_REQUIRED'){$('teamCard').hidden=true;status('權限已變更，請重新確認權限。');}}}
+ }catch(err){freshArrived=true;if(seq===requestGeneration&&token===sessionToken){if(err.code){clearAccountCache();clearWork();pageBusy=false;syncControls();}handleError(err,'teamStatus');if(cachedView)busyText('teamStatus','更新失敗，目前為本機舊資料，僅供查看；請重新讀取。');if(err.code==='COACH_REQUIRED'){$('teamCard').hidden=true;status('權限已變更，請重新確認權限。');}}}
  finally{if(seq===requestGeneration){pageBusy=false;$('teamStatus').setAttribute('data-busy','false');syncControls();updateTimeline();}}
 }
 function renderLegacyInputs(){
@@ -315,6 +344,7 @@ function renderLegacyInputs(){
 function legacyChangedRows(){return inputs.filter(i=>i.weight.value.trim()!==String(i.slot.weightKg??'')||i.fat.value.trim()!==String(i.slot.bodyFatPercent??'')).map(i=>({entryId:i.slot.entryId,weightKg:i.weight.value.trim(),bodyFatPercent:i.fat.value.trim(),expectedRevision:i.expectedRevision}));}
 function draftKey(){return identity&&lastPage?'injoy-draft-v1:'+identity.userId+':'+lastPage.teamLapId+':'+(timelinePages?'timeline':lastPage.measuredDate+':'+lastPage.phase):null;}
 function saveDraft(){
+ if(cachedView)return;
  const key=draftKey();if(!key)return;
  try{const rows=changedRows();if(rows.length){sessionStorage.setItem(key,JSON.stringify({rows,operationId,timelineOperations}));$('draftStatus').textContent='草稿已保存在本瀏覽器分頁，尚未寫入成績。';}else{sessionStorage.removeItem(key);$('draftStatus').textContent='目前沒有未送出的變更。';}}
  catch(err){$('draftStatus').textContent='此瀏覽器無法保存草稿；目前輸入僅保留在開啟的頁面中。';}
@@ -329,7 +359,7 @@ function restoreDraft(){
 }
 function removeDraft(){const key=draftKey();if(key){try{sessionStorage.removeItem(key);}catch(err){}}}
 async function submitLegacyMeasurements(){
- if(saving||authBusy||pageBusy||teamsBusy||!hasWorkAccess()||!lastPage?.writeEnabled)return;
+ if(cachedView||saving||authBusy||pageBusy||teamsBusy||!hasWorkAccess()||!lastPage?.writeEnabled)return;
  const rows=changedRows();if(!rows.length)return;
  if(rows.some(r=>!/^\d+(?:\.\d{1,3})?$/.test(r.weightKg)||Number(r.weightKg)<=0||(r.bodyFatPercent!==''&&(!/^\d+(?:\.\d{1,2})?$/.test(r.bodyFatPercent)||Number(r.bodyFatPercent)>100)))){busyText('saveStatus','請填入大於0的體重（最多3位小數）；體脂率可留空，填寫時須為0至100（最多2位小數）。');return;}
  if(!window.confirm('確認登錄「'+lastPage.teamName+'」'+lastPage.measuredDate+' 的 '+rows.length+' 位選手資料？'))return;
@@ -362,11 +392,11 @@ async function reviewApplication(item,decision){
 
 function previewName(slot){return namePreviews.get(photoKey(lastPage?.teamLapId,slot.entryId))||slot.displayName||'姓名未設定';}
 function photoKey(teamLapId,entryId){return JSON.stringify([teamLapId,entryId]);}
-function refreshPhotoInputs(){const draft=inputs.map(i=>({entryId:i.slot.entryId,date:i.date,weight:i.weight.value,fat:i.fat.value}));renderInputs();for(const i of inputs){const d=draft.find(v=>v.entryId===i.slot.entryId&&v.date===i.date);if(d){i.weight.value=d.weight;i.fat.value=d.fat;}}syncControls();}
+function refreshPhotoInputs(){const scroll=$('measurementScroll'),left=scroll.scrollLeft,top=scroll.scrollTop;const active=inputs.flatMap(i=>['weight','fat'].map(field=>({i,field}))).find(v=>v.i[v.field]===document.activeElement);const selection=active?[active.i[active.field].selectionStart,active.i[active.field].selectionEnd]:null;const draft=inputs.map(i=>({entryId:i.slot.entryId,date:i.date,weight:i.weight.value,fat:i.fat.value,expectedRevision:i.expectedRevision}));renderInputs();for(const i of inputs){const d=draft.find(v=>v.entryId===i.slot.entryId&&v.date===i.date);if(d){i.weight.value=d.weight;i.fat.value=d.fat;i.expectedRevision=d.expectedRevision;}}scroll.scrollLeft=left;scroll.scrollTop=top;syncControls();if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>{scroll.scrollLeft=left;scroll.scrollTop=top;updateTimeline();if(active){const item=inputs.find(i=>i.slot.entryId===active.i.slot.entryId&&i.date===active.i.date);if(item&&!item[active.field].disabled){item[active.field].focus({preventScroll:true});try{item[active.field].setSelectionRange(...selection);}catch(_){}}}});}
 function cropAllowed(){return lastPage?.canManage!==false&&!!crop&&hasWorkAccess()&&lastPage?.teamLapId===crop.teamLapId&&lastPage.slots.some(s=>s.occupied&&s.entryId===crop.entryId)&&!saving&&!pageBusy&&!teamsBusy;}
 function cropButtons(enabled){for(const id of ['cropZoom','cropLeft','cropRight','cropUp','cropDown','resetCrop','confirmCrop'])$(id).disabled=!enabled;}
 function cancelPhotoCrop(){photoLoadSequence++;crop=null;cropButtons(false);$('photoFile').value='';if($('cropDialog').open)$('cropDialog').close();const c=$('cropCanvas');if(c.getContext)c.getContext('2d')?.clearRect(0,0,c.width,c.height);}
-function openPhotoCrop(slot){if(!hasWorkAccess()||!lastPage||saving||pageBusy||teamsBusy||!slot.occupied)return;cancelPhotoCrop();crop={entryId:slot.entryId,teamLapId:lastPage.teamLapId,image:null,zoom:1,x:0,y:0,drag:null};$('cropPerson').textContent=previewName(slot);$('cropZoom').value='50';$('cropZoomValue').textContent='100%';busyText('cropStatus','請選擇一張照片。');$('cropDialog').showModal();}
+function openPhotoCrop(slot){if(cachedView||!profilesReady||!hasWorkAccess()||!lastPage||saving||pageBusy||teamsBusy||!slot.occupied)return;cancelPhotoCrop();crop={entryId:slot.entryId,teamLapId:lastPage.teamLapId,image:null,zoom:1,x:0,y:0,drag:null};$('cropPerson').textContent=previewName(slot);$('cropZoom').value='50';$('cropZoomValue').textContent='100%';busyText('cropStatus','請選擇一張照片。');$('cropDialog').showModal();}
 function cropZoomFromSlider(value){const n=Number(value);return Number.isFinite(n)?Math.pow(2,(Math.max(0,Math.min(100,n))-50)/25):1;}
 function cropGeometry(width,height,zoom,x,y){const scale=Math.min(720/width,720/height)*zoom,w=width*scale,h=height*scale,limitX=Math.abs(w-720)/2,limitY=Math.abs(h-720)/2;return {w,h,x:Math.max(-limitX,Math.min(limitX,x)),y:Math.max(-limitY,Math.min(limitY,y))};}
 function drawCrop(){if(!crop?.image)return;$('cropZoomValue').textContent=Math.round(crop.zoom*100)+'%';const g=cropGeometry(crop.image.naturalWidth,crop.image.naturalHeight,crop.zoom,crop.x,crop.y);crop.x=g.x;crop.y=g.y;const ctx=$('cropCanvas').getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,720,720);ctx.drawImage(crop.image,(720-g.w)/2+g.x,(720-g.h)/2+g.y,g.w,g.h);}
@@ -431,10 +461,11 @@ function applyMeasurementUpdate(result,savedRows,savedDate){
   if(item.source)item.source.textContent=value.isCarried?'沿用 '+value.sourceMeasuredDate:(value.measurementSaved?'本日已儲存':item.phase==='START'?'請輸入起始體重':'尚未量測');
  }
  for(const page of pages)page.totalActualKg=gridTotalKg(page.slots);
+ persistTeamCache();
 }
 
 async function submitMeasurements(){
- if(!timelinePages)return submitLegacyMeasurements();if(saving||authBusy||pageBusy||teamsBusy||!hasWorkAccess())return;const rows=changedRows();if(!rows.length)return;
+ if(!timelinePages)return submitLegacyMeasurements();if(cachedView||saving||authBusy||pageBusy||teamsBusy||!hasWorkAccess())return;const rows=changedRows();if(!rows.length)return;
  if(rows.some(r=>!/^\d+(?:\.\d{1,3})?$/.test(r.weightKg)||Number(r.weightKg)<=0||(r.bodyFatPercent!==''&&(!/^\d+(?:\.\d{1,2})?$/.test(r.bodyFatPercent)||Number(r.bodyFatPercent)>100)))){busyText('saveStatus','請填入有效體重；僅填體脂時，請一併確認該日體重。');return;}
  const dates=Array.from(new Set(rows.map(r=>r.measuredDate))).sort();if(dates.some(date=>!timelinePages.find(p=>p.measuredDate===date)?.writeEnabled)){busyText('saveStatus','部分日期尚未開放登錄，請核對圈次設定。');return;}
  if(!window.confirm('確認儲存 '+dates.length+' 個日期、共 '+rows.length+' 筆選手量測？各日期依序儲存；若中斷，已完成日期會保留。'))return;
@@ -468,7 +499,7 @@ async function loadEntryProfiles(token,sequence){
  finally{if(sequence===requestGeneration)$('profileStatus').setAttribute('data-busy','false');}
 }
 async function saveEntryProfiles(){
- if(saving||authBusy||pageBusy||teamsBusy||!hasWorkAccess()||!profilesReady)return;
+ if(cachedView||saving||authBusy||pageBusy||teamsBusy||!hasWorkAccess()||!profilesReady)return;
  const dirty=dirtyProfiles();if(!dirty.length)return;const teamLapId=lastPage.teamLapId;
  if(!window.confirm('確認儲存 '+dirty.length+' 位學員的共用姓名／照片？會套用本圈各隊，並供後續圈次沿用；歷史圈保持原資料。' ))return;
  saveDraft();saving=true;syncControls();const token=sessionToken;let completed=0,failed='';
@@ -483,7 +514,7 @@ async function saveEntryProfiles(){
  profileRecords.set(slot.entryId,{...record,...result,photoData:savedPhotos.get(key)||''});for(const page of timelinePages||[lastPage]){const s=page.slots.find(s=>s.entryId===slot.entryId);if(s)s.displayName=result.displayName;}
  namePreviews.delete(key);photoPreviews.delete(key);photoRemovals.delete(key);profileDraftVersions.delete(key);profileOperations.delete(key);completed++;
  }}catch(err){failed=err.message||'儲存中斷';}
- finally{saving=false;if(token===sessionToken){refreshPhotoInputs();busyText('profileStatus',failed?'已儲存 '+completed+' 位，其餘修改保留。'+failed+' 若資料衝突，可按「重新讀取已存資料」捨棄本隊草稿後核對。':'已儲存 '+completed+' 位選手的姓名與照片，重新整理後仍會保留。');$('profileStatus').setAttribute('data-busy','false');syncControls();}}
+ finally{saving=false;if(token===sessionToken){refreshPhotoInputs();persistTeamCache();busyText('profileStatus',failed?'已儲存 '+completed+' 位，其餘修改保留。'+failed+' 若資料衝突，可按「重新讀取已存資料」捨棄本隊草稿後核對。':'已儲存 '+completed+' 位選手的姓名與照片，重新整理後仍會保留。');$('profileStatus').setAttribute('data-busy','false');syncControls();}}
 }
 $('saveProfiles').addEventListener('click',saveEntryProfiles);
 
@@ -499,7 +530,7 @@ function changeColor(goalType,grams){if(grams===null||grams===0||!['GAIN','LOSS'
 function gridTotalKg(slots){let sum=0;for(const s of slots){if(s.occupied&&Number.isSafeInteger(s.actualGrams))sum+=s.actualGrams;}return Number.isSafeInteger(sum)?String(sum/1000):'0';}
 function changeLabel(grams){return grams===null?'':grams>0?'+'+grams:grams<0?'−'+Math.abs(grams):'0';}
 function previewGrid(){
- if(!lastPage||saving||pageBusy||teamsBusy||!hasWorkAccess())return;
+ if(cachedView||!profilesReady||!lastPage||saving||pageBusy||teamsBusy||!hasWorkAccess())return;
  resetGridExport();$('gridOverlay').replaceChildren();$('roster').replaceChildren();if(!$('gridDialog').open)$('gridDialog').showModal();
  const xs=[338,587,836],ys=[484,776,1068];
  for(const s of lastPage.slots){const grams=weightChangeGrams(s);const row=document.createElement('li');row.textContent=s.occupied?previewName(s)+(grams===null?'：尚無完整成果':'：體重增減 '+changeLabel(grams)+' 克'):'空位';$('roster').appendChild(row);if(!s.occupied)continue;
@@ -715,7 +746,7 @@ async function saveTeamManager(){
  catch(err){if(seq===managerSeq)handleError(err,'managerStatus');}
  finally{saving=false;if(seq===managerSeq){managerBusy=false;managerControls();$('managerStatus').setAttribute('data-busy','false');}syncControls();}
  if(!result||seq!==managerSeq||token!==sessionToken)return;
- managerClose(true);await loadTeams(result.teamLapId);
+ managerClose(true);clearAccountCache();await loadTeams(result.teamLapId);
  if(action==='createManagedTeam')await openTeamManager(false);else busyText('teamStatus','隊伍與名單已儲存，已載入最新資料，可開始輸入成績與照片。');
 }
 $('createTeam').addEventListener('click',()=>openTeamManager(true));$('manageTeam').addEventListener('click',()=>openTeamManager(false));
