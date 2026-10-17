@@ -24,7 +24,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 /* 保留操作列原高度，手機鍵盤展開時隱藏，避免浮到鍵盤上方或造成版面重排。 */
 .sticky-actions[data-keyboard="open"]{visibility:hidden;pointer-events:none}
 
-/* 1.7.0：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
+/* 1.7.1：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
 .timeline-sheet{--left:156px;--day:144px;--row:178px;background:#f5f2ee;border-color:#e5ded6;border-radius:14px}
 .timeline-sheet table{margin:0}
 .timeline-sheet th,.timeline-sheet td{padding:5px;vertical-align:top}
@@ -76,11 +76,12 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 #gridComposite{-webkit-touch-callout:default;user-select:auto;pointer-events:auto}
 .export-steps{display:grid;gap:10px;margin:12px 0}.export-step{padding:12px 14px;background:#faf6ef;border:1px solid #e8dfd2;border-radius:12px}.export-step h3{font-size:15px;margin:0 0 6px}.export-step .hint{font-size:12px;margin:6px 0 0}.export-choices{display:flex;gap:8px}.export-choices button{flex:1;margin:4px 0}#downloadPng{display:none}
 #managerFields{border:0;padding:0;margin:0}#managerCoachWrap{margin:12px 0}#managerRosterSection{margin-top:18px}#managerRoster{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.manager-slot{padding:10px;background:#faf6ef;border:1px solid #e8dfd2;border-radius:12px;min-width:0}.manager-slot h4{margin:0 0 8px}.manager-slot input,.manager-slot select{margin:4px 0;font-size:16px;padding:8px}.manager-slot .hint{font-size:12px}.manager-footer{position:sticky;bottom:-18px;background:#fff;padding:8px 0}@media(max-width:640px){#managerRoster{grid-template-columns:1fr}#managerSave{width:100%}}
+#managerCoach{display:grid;gap:8px;max-height:260px;overflow:auto}.coach-check{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e8dfd2;border-radius:10px;margin:0;cursor:pointer}.coach-check input{width:20px;height:20px;flex:0 0 20px;accent-color:#a8352e}.coach-check:has(input:checked){background:#fff1e7;border-color:#c77550}
 </style>
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.7.0｜更新：2026/10/16（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.7.1｜更新：2026/10/16（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
 <div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
 <div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
@@ -96,10 +97,10 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 <div id="entryPanel" hidden><p class="photo-note">姓名與照片按「儲存姓名與照片」保存為學員共用資料，跨隊、跨圈沿用；更新會套用本圈各隊，歷史圈保留原資料；體重與體脂按「儲存成績」。未儲存的照片與姓名在重新整理後會清除。</p><p class="hint">體重單位為公斤；體脂率可留空。空白體重不會刪除既有紀錄。</p><div id="timelineTools" class="timeline-tools" hidden><button id="timelineStart" type="button" class="secondary">前測</button><button id="timelinePrev" type="button" class="secondary">←</button><button id="timelineToday" type="button" class="secondary">今天</button><button id="timelineNext" type="button" class="secondary">→</button><strong id="timelineLabel" aria-live="polite"></strong></div><div id="measurementScroll" class="table-scroll" tabindex="0" role="region" aria-label="左側選手固定，右側日期可左右滑動"><table id="measurementTable"><thead id="measurementHead"><tr><th scope="col">選手</th><th scope="col">體重 kg</th><th scope="col">體脂率 %</th></tr></thead><tbody id="measurementRows"></tbody></table></div><p id="draftStatus" class="hint" role="status" aria-live="polite"></p><p id="profileStatus" class="hint" role="status" aria-live="polite"></p><div class="sticky-actions" id="measurementActions"><button id="saveProfiles" type="button" class="secondary" disabled>儲存姓名與照片</button><button id="submitMeasurements" type="button" disabled>儲存成績</button><button id="previewGrid" type="button" class="secondary" disabled>預覽九宮格</button><p id="saveStatus" role="status" aria-live="polite"></p></div></div>
 </section>
 <section class="area card" id="reviewCard" hidden aria-labelledby="reviewTitle"><h2 id="reviewTitle">教練申請審核</h2><p class="hint">僅超級管理者可審核；總監另行指定。</p><button id="reloadApplications" type="button" class="secondary">重新整理待審清單</button><p id="reviewStatus" role="status" aria-live="polite"></p><div id="applications"></div><button id="nextPage" type="button" class="secondary" hidden>下一頁</button></section>
-<dialog id="teamManager" aria-labelledby="managerTitle"><div class="dialog-head"><h2 id="managerTitle">隊伍與九宮格名單</h2><button id="managerCancel" type="button" class="secondary">關閉</button></div><p id="managerLap" class="hint"></p><p id="managerStatus" role="status" aria-live="polite"></p><fieldset id="managerFields"><label for="managerTeamName">隊伍名稱</label><input id="managerTeamName" maxlength="80"><div id="managerCoachWrap"><label for="managerCoach">隊伍教練</label><select id="managerCoach"></select></div><section id="managerRosterSection"><h3>九宮格名單</h3><p class="hint">同一學員可參加不同隊伍。已有量測者可換格位，但不能直接換人、移除或更改增減重類別。新增前請先搜尋，避免重複建檔。</p><div id="managerRoster"></div></section></fieldset><div class="manager-footer"><button id="managerSave" type="button">儲存隊伍與名單</button></div></dialog>
+<dialog id="teamManager" aria-labelledby="managerTitle"><div class="dialog-head"><h2 id="managerTitle">隊伍與九宮格名單</h2><button id="managerCancel" type="button" class="secondary">關閉</button></div><p id="managerLap" class="hint"></p><p id="managerStatus" role="status" aria-live="polite"></p><fieldset id="managerFields"><label for="managerTeamName">隊伍名稱</label><input id="managerTeamName" maxlength="80"><div id="managerCoachWrap"><p id="managerCoachLabel">隊伍教練（可勾選 1～3 位）</p><div id="managerCoach" role="group" aria-labelledby="managerCoachLabel"></div><p id="managerCoachCount" class="hint" aria-live="polite"></p></div><section id="managerRosterSection"><h3>九宮格名單</h3><p class="hint">同一學員可參加不同隊伍。已有量測者可換格位，但不能直接換人、移除或更改增減重類別。新增前請先搜尋，避免重複建檔。</p><div id="managerRoster"></div></section></fieldset><div class="manager-footer"><button id="managerSave" type="button">儲存隊伍與名單</button></div></dialog>
 <dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="export-steps"><section class="export-step"><h3>步驟一：確認成果圖</h3><button id="exportGrid" type="button">確定下載成果圖</button><p class="hint">先確認預覽內容，再產生完整高解析圖片。</p></section><section class="export-step" id="exportStepTwo" hidden><h3>步驟二：選擇儲存方式</h3><div class="export-choices"><button id="saveLocalPng" type="button">存到本機</button><button id="sharePng" type="button" class="secondary" hidden>分享</button></div><a id="downloadPng" hidden aria-hidden="true" tabindex="-1"></a><p class="hint">LINE 內若無法下載，請長按下方成果圖儲存，或按「分享」。</p></section></div><p id="exportStatus" class="hint" role="status"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg><img id="gridComposite" hidden alt="已合成的九宮格成果圖，可長按儲存"></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少有效起始或量測資料時保持空白。按「確定下載成果圖」完成合成，再選「存到本機」或「分享」。原圖為 2346 × 2682，不需螢幕截圖。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
 <dialog id="cropDialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">選手照片・1:1 裁切</h2><button id="cancelCrop" type="button" class="secondary">取消</button></div><p id="cropPerson"></p><p class="photo-note">確認裁切後，還需按「儲存姓名與照片」才會上傳保存。照片初始完整置中；向左縮小、向右放大，拖曳可調位置。縮小後的空白會保留為白底。</p><label for="photoFile">選擇照片（JPEG、PNG、WebP，最大 10 MB）</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><p id="cropStatus" role="status" aria-live="polite"></p><canvas id="cropCanvas" class="crop-stage" width="720" height="720" aria-label="正方形裁切預覽，可拖曳照片；也可使用下方方向按鈕調整"></canvas><label for="cropZoom">縮小 ← 縮放 → 放大（<span id="cropZoomValue">100%</span>）</label><input id="cropZoom" type="range" min="0" max="100" step="1" value="50" disabled><div class="crop-controls"><button id="cropLeft" type="button" class="secondary" aria-label="照片向左移動" disabled>←</button><button id="cropUp" type="button" class="secondary" aria-label="照片向上移動" disabled>↑</button><button id="cropDown" type="button" class="secondary" aria-label="照片向下移動" disabled>↓</button><button id="cropRight" type="button" class="secondary" aria-label="照片向右移動" disabled>→</button><button id="resetCrop" type="button" class="secondary" disabled>重設位置</button><button id="confirmCrop" type="button" disabled>確認裁切</button></div></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.7.0｜2026/10/16（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.7.1｜2026/10/16（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -653,9 +654,12 @@ $('reloadApplications').addEventListener('click',()=>loadApplications(0));$('nex
 window.addEventListener('pagehide',saveDraft);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveDraft();});
 $('measuredDate').value=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 syncControls();
+let managerCoachInputs=[];
 let managerState=null,managerRows=[],managerSeq=0,managerBusy=false,managerDirty=false,managerRetry=null;
 function managerClose(force=false){if(!force&&(managerBusy||managerDirty&&!window.confirm('尚未儲存隊伍名單，確定關閉？')))return;managerSeq++;managerDirty=false;managerState=null;managerRetry=null;$('teamManager').close();}
 function managerControls(){const blocked=managerBusy||!managerState?.canManage;$('managerFields').disabled=blocked;$('managerSave').disabled=blocked;$('managerCancel').disabled=managerBusy;$('managerSave').textContent=managerBusy?'處理中…':managerState?.teamLapId?'儲存隊伍與名單':'建立隊伍';}
+function managerSelectedCoaches(){return managerCoachInputs.filter(input=>input.checked).map(input=>input.value);}
+function updateManagerCoachCount(){const count=managerSelectedCoaches().length;for(const input of managerCoachInputs)input.disabled=!input.checked&&count>=3;$('managerCoachCount').textContent='已選 '+count+'／3 位；被勾選的教練都能管理本隊。';}
 function managerOption(value,label){const n=document.createElement('option');n.value=value;n.textContent=label;return n;}
 async function openTeamManager(create=false){
  if(!hasWorkAccess()||saving||pageBusy||teamsBusy||authBusy)return;
@@ -663,10 +667,11 @@ async function openTeamManager(create=false){
  const seq=++managerSeq,token=sessionToken;managerState=null;managerRows=[];managerRetry=null;managerDirty=false;managerBusy=true;
  $('managerRoster').replaceChildren();$('managerTitle').textContent=create?'建立隊伍':'隊伍與九宮格名單';$('managerFields').hidden=true;$('teamManager').showModal();managerControls();busyText('managerStatus','正在讀取隊伍設定…',true);
  try{const data=await callBackend('teamEditor',{sessionToken:token,payload:{teamLapId:create?'':$('teamSelect').value}});if(seq!==managerSeq||token!==sessionToken)return;
+  if(data.maxCoaches!==3)throw Error('請先更新 InJoy_TeamManagement.gs 並將既有 GAS 部署切換為新版本，再重新開啟。');
   managerState=data;$('managerFields').hidden=false;$('managerTeamName').value=data.teamName||'';$('managerLap').textContent='第 '+data.lapNumber+' 圈';
-  $('managerCoachWrap').hidden=!data.canAssignCoach;$('managerCoach').replaceChildren(managerOption('','請指定隊伍教練'));
-  for(const coach of data.coaches)$('managerCoach').appendChild(managerOption(coach.userId,coach.displayName+' · '+coach.userId.slice(-6)));
-  $('managerCoach').value=data.coachUserId||'';$('managerRosterSection').hidden=!data.teamLapId;
+  $('managerCoachWrap').hidden=!data.canAssignCoach;$('managerCoach').replaceChildren();managerCoachInputs=[];
+  for(const coach of data.coaches){const label=document.createElement('label');label.className='coach-check';const input=document.createElement('input');input.type='checkbox';input.value=coach.userId;input.checked=data.coachUserIds.includes(coach.userId);managerCoachInputs.push(input);const text=document.createElement('span');text.textContent=coach.displayName+' · '+coach.userId.slice(-6);label.appendChild(input);label.appendChild(text);$('managerCoach').appendChild(label);input.addEventListener('change',()=>{if(managerSelectedCoaches().length>3){input.checked=false;busyText('managerStatus','最多可選 3 位教練。');}managerDirty=true;updateManagerCoachCount();});}
+  updateManagerCoachCount();$('managerRosterSection').hidden=!data.teamLapId;
   if(data.teamLapId)buildManagerRows(data);
   busyText('managerStatus',data.canManage?(data.teamLapId?'選用既有學員可沿用姓名與照片；量測由各隊獨立登錄。':'建立後即可加入九宮格名單。'):'此隊僅供查看；請由所屬教練、總監或超級管理者編輯。');
  }catch(err){if(seq===managerSeq)handleError(err,'managerStatus');}
@@ -696,10 +701,10 @@ function buildManagerRows(data){
 }
 async function saveTeamManager(){
  if(managerBusy||!managerState?.canManage)return;
- const data=managerState,teamName=$('managerTeamName').value.trim(),coachUserId=data.canAssignCoach?$('managerCoach').value:data.coachUserId;
+ const data=managerState,teamName=$('managerTeamName').value.trim(),coachUserIds=data.canAssignCoach?managerSelectedCoaches():data.coachUserIds;
  if(!teamName){busyText('managerStatus','請填寫隊名。');return;}
- if(data.canAssignCoach&&!coachUserId){busyText('managerStatus','請指定已核准的隊伍教練。');return;}
- const payload={lapId:data.lapId,teamName,coachUserId};let action='createManagedTeam';
+ if(data.canAssignCoach&&(coachUserIds.length<1||coachUserIds.length>3)){busyText('managerStatus','請勾選 1～3 位已核准的隊伍教練。');return;}
+ const payload={lapId:data.lapId,teamName,coachUserIds};let action='createManagedTeam';
  if(data.teamLapId){action='saveManagedTeam';Object.assign(payload,{teamLapId:data.teamLapId,expectedTeamRevision:data.teamRevision,rosterToken:data.rosterToken,slots:managerRows.map(r=>({slotIndex:r.slotIndex,mode:r.mode.value,personId:r.mode.value==='existing'?r.select.value:'',displayName:r.mode.value==='new'?r.name.value.trim():'',goalType:r.goal.value}))});
   if(payload.slots.some(s=>s.mode==='existing'&&!s.personId||s.mode==='new'&&!s.displayName)){busyText('managerStatus','請完成學員選擇或填寫新學員姓名，空格請選「留空」。');return;}
  }
@@ -715,7 +720,7 @@ async function saveTeamManager(){
 }
 $('createTeam').addEventListener('click',()=>openTeamManager(true));$('manageTeam').addEventListener('click',()=>openTeamManager(false));
 $('managerSave').addEventListener('click',saveTeamManager);$('managerCancel').addEventListener('click',()=>managerClose());
-$('managerTeamName').addEventListener('input',()=>managerDirty=true);$('managerCoach').addEventListener('change',()=>managerDirty=true);
+$('managerTeamName').addEventListener('input',()=>managerDirty=true);
 $('teamManager').addEventListener('cancel',e=>{e.preventDefault();managerClose();});
 
 login();
