@@ -10,7 +10,7 @@
 
 /* 1.3.1：第一區為緊湊資訊卡；窄畫面保留左右並排，可水平捲動。 */
 main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-width:3px}h1{font-size:22px;margin:4px 0}header>p{margin:3px 0;font-size:13px}header>.version{font-size:11px}.area{margin:14px 0}
-#accountArea{max-width:760px;padding:12px;background:#f3ede3;border:1px solid #e5dacb;border-radius:16px}.account-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.account-heading h2{font-size:13px;color:#776654;margin:0;font-weight:600}.account-grid{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#c7ae92 transparent;padding:2px 2px 6px;cursor:grab;touch-action:pan-x pan-y;min-width:0}.account-grid[data-dragging="true"]{cursor:grabbing;user-select:none;scroll-snap-type:none}.account-grid>.card{flex:0 0 calc((100% - 10px)/2);min-width:190px;min-height:0;padding:12px 14px;border-radius:13px;scroll-snap-align:start;box-shadow:0 2px 8px #4b352006}.account-grid>.card:only-child{flex-basis:100%}.account-grid:has(>#account[hidden])>#loginCard{flex-basis:100%}.account-grid h3{font-size:13px;color:#776654;margin:0 0 6px}.account-grid p{margin:5px 0;line-height:1.45;font-size:13px}.account-grid #displayName{font-size:16px;font-weight:700;margin:3px 0 5px}.account-grid button{font-size:12px;padding:7px 10px;margin:4px 5px 0 0;border-radius:7px}.account-grid .badge{font-size:11px;padding:3px 7px;margin:2px 4px 2px 0}.account-details{margin-top:6px;font-size:12px;color:#776654}.account-details .hint{font-size:11px}.rail-controls{display:flex;gap:4px}.rail-controls button{margin:0;padding:1px 9px;font-size:21px;line-height:1.2;border-radius:7px}.account-grid:focus-visible{outline:2px solid #d89b30;outline-offset:3px}
+#accountArea{max-width:760px;padding:12px;background:#f3ede3;border:1px solid #e5dacb;border-radius:16px}.account-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.account-heading h2{font-size:13px;color:#776654;margin:0;font-weight:600}.account-grid{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#c7ae92 transparent;padding:2px 2px 6px;cursor:default;touch-action:pan-x pan-y;min-width:0}.account-grid[data-dragging="true"]{cursor:default;user-select:none;scroll-snap-type:none}.account-grid>.card{flex:0 0 calc((100% - 10px)/2);min-width:190px;min-height:0;padding:12px 14px;border-radius:13px;scroll-snap-align:start;box-shadow:0 2px 8px #4b352006}.account-grid>.card:only-child{flex-basis:100%}.account-grid:has(>#account[hidden])>#loginCard{flex-basis:100%}.account-grid h3{font-size:13px;color:#776654;margin:0 0 6px}.account-grid p{margin:5px 0;line-height:1.45;font-size:13px}.account-grid #displayName{font-size:16px;font-weight:700;margin:3px 0 5px}.account-grid button{font-size:12px;padding:7px 10px;margin:4px 5px 0 0;border-radius:7px}.account-grid .badge{font-size:11px;padding:3px 7px;margin:2px 4px 2px 0}.account-details{margin-top:6px;font-size:12px;color:#776654}.account-details .hint{font-size:11px}.rail-controls{display:flex;gap:4px}.rail-controls button{margin:0;padding:1px 9px;font-size:21px;line-height:1.2;border-radius:7px}.account-grid:focus-visible{outline:2px solid #d89b30;outline-offset:3px}
 @media(max-width:640px){main{padding:10px}#accountArea{padding:9px}.account-grid{gap:8px}.account-grid>.card{flex-basis:calc((100% - 8px)/2);min-width:165px;padding:10px}.account-grid #displayName{font-size:14px}.account-grid button{font-size:12px;padding:7px 8px}h1{font-size:20px}}
 
 .photo-tools{margin-top:6px}.photo-tools button{font-size:12px;padding:6px 8px}.photo-thumb{display:block;width:52px;height:52px;border-radius:8px;object-fit:cover;margin-top:5px}.crop-stage{display:block;width:min(100%,360px);aspect-ratio:1;margin:12px auto;background:#eee;border-radius:12px;touch-action:none;cursor:move}.crop-controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.crop-controls button{padding:8px 12px}.photo-note{font-size:13px;color:#865a24}#cropDialog{max-width:500px}#cropZoom{padding:8px 0}#photoFile{margin:6px 0}
@@ -24,7 +24,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 /* 保留操作列原高度，手機鍵盤展開時隱藏，避免浮到鍵盤上方或造成版面重排。 */
 .sticky-actions[data-keyboard="open"]{visibility:hidden;pointer-events:none}
 
-/* 1.7.5：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
+/* 1.7.6：照片為識別主體，數字卡片採緊湊尺寸，16px 輸入字級避免手機自動放大。 */
 .timeline-sheet{--left:156px;--day:144px;--row:178px;background:#f5f2ee;border-color:#e5ded6;border-radius:14px}
 .timeline-sheet table{margin:0}
 .timeline-sheet th,.timeline-sheet td{padding:5px;vertical-align:top}
@@ -82,12 +82,12 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 </head>
 <body>
 <main>
-<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.7.5｜更新：2026/10/17（台灣時間）</p></header>
+<header><h1>InJoy 營養俱樂部</h1><p>體重管理馬拉松・教練工作台</p><p class="version">網頁版本 1.7.6｜更新：2026/10/17（台灣時間）</p></header>
 <section class="area" id="accountArea" aria-labelledby="accountTitle">
 <div class="account-heading"><h2 id="accountTitle">帳號與身分</h2><div id="accountRailControls" class="rail-controls" hidden><button id="accountPrev" type="button" class="secondary" aria-label="向左查看資訊卡">‹</button><button id="accountNext" type="button" class="secondary" aria-label="向右查看資訊卡">›</button></div></div>
 <div class="account-grid" id="accountRail" role="region" aria-label="帳號資訊卡片，可左右滑動" tabindex="0">
-<div class="card" id="loginCard"><h3>登入狀態</h3><p id="status" role="status" aria-live="polite">請使用 LINE 帳號登入。</p><button id="login" type="button">LINE 登入</button><a id="liffFallback" href="https://liff.line.me/2012022227-AgkXKQoz" hidden>改用 LINE 專用連結開啟</a><button id="refresh" type="button" class="secondary" hidden>重新確認權限</button><button id="logout" type="button" class="secondary" hidden>登出</button></div>
-<div class="card" id="account" hidden><h3>身分資訊</h3><p id="displayName"></p><div id="roles" role="group" aria-label="切換操作身分"></div><p id="roleStatus" class="hint" role="status"></p><details class="account-details"><summary>帳號與權限</summary><p id="access" class="hint"></p><p id="userId" class="hint wrap"></p></details></div>
+<div class="card" id="loginCard"><h3>登入狀態</h3><p id="status" role="status" aria-live="polite">請使用 LINE 帳號登入。</p><button id="login" type="button">LINE 登入</button><a id="liffFallback" href="https://liff.line.me/2012022227-AgkXKQoz" hidden>改用 LINE 專用連結開啟</a></div>
+<div class="card" id="account" hidden><h3>身分資訊</h3><p id="displayName"></p><div id="roles" role="group" aria-label="切換操作身分"></div><p id="roleStatus" class="hint" role="status" hidden></p><details class="account-details"><summary>帳號選項</summary><button id="refresh" type="button" class="secondary" hidden>重新確認權限</button><button id="logout" type="button" class="secondary" hidden>登出</button><p id="access" class="hint"></p><p id="userId" class="hint wrap"></p></details></div>
 </div></section>
 <section class="area card" id="applyCard" aria-labelledby="applyTitle"><h2 id="applyTitle">申請成為教練</h2><p id="applyStatus" role="status" aria-live="polite">登入後即可申請，核准前不能查看選手資料。</p><button id="apply" type="button" disabled>申請教練資格</button></section>
 <section class="area card" id="teamCard" hidden aria-labelledby="entryTitle">
@@ -101,7 +101,7 @@ main{margin:12px auto;padding:14px 20px}header{padding:10px 0 4px;border-top-wid
 <dialog id="teamManager" aria-labelledby="managerTitle"><div class="dialog-head"><h2 id="managerTitle">隊伍與九宮格名單</h2><button id="managerCancel" type="button" class="secondary">關閉</button></div><p id="managerLap" class="hint"></p><p id="managerStatus" role="status" aria-live="polite"></p><fieldset id="managerFields"><label for="managerTeamName">隊伍名稱</label><input id="managerTeamName" maxlength="80"><div id="managerCoachWrap"><p id="managerCoachLabel">隊伍教練（可勾選 1～3 位）</p><div id="managerCoach" role="group" aria-labelledby="managerCoachLabel"></div><p id="managerCoachCount" class="hint" aria-live="polite"></p></div><section id="managerRosterSection"><h3>九宮格名單</h3><p class="hint">同一學員可參加不同隊伍。已有量測者可換格位，但不能直接換人、移除或更改增減重類別。新增前請先搜尋，避免重複建檔。</p><div id="managerRoster"></div></section></fieldset><div class="manager-footer"><button id="managerSave" type="button">儲存隊伍與名單</button></div></dialog>
 <dialog id="gridDialog" aria-labelledby="gridTitle"><div class="dialog-head"><h2 id="gridTitle">九宮格預覽</h2><button id="closeGrid" type="button" class="secondary">關閉</button></div><p id="gridCaption" class="hint"></p><div class="export-steps"><section class="export-step"><h3>步驟一：確認成果圖</h3><button id="exportGrid" type="button">確定下載成果圖</button><p class="hint">先確認預覽內容，再產生完整高解析圖片。</p></section><section class="export-step" id="exportStepTwo" hidden><h3>步驟二：選擇儲存方式</h3><div class="export-choices"><button id="saveLocalPng" type="button">存到本機</button><button id="sharePng" type="button" class="secondary" hidden>分享</button></div><a id="downloadPng" hidden aria-hidden="true" tabindex="-1"></a><p class="hint">LINE 內若無法下載，請長按下方成果圖儲存，或按「分享」。</p></section></div><p id="exportStatus" class="hint" role="status"></p><div class="grid-image" id="gridImage"><img id="gridBackground" src="./injoy-grid-square-v1.png" width="1173" height="1341" alt="InJoy 營養俱樂部九宮格底圖"><svg id="gridOverlay" viewBox="0 0 1173 1341" aria-hidden="true"></svg><img id="gridComposite" hidden alt="已合成的九宮格成果圖，可長按儲存"></div><p class="hint">顯示已儲存的量測成果，尚未送出的草稿不會出現在圖卡上。照片右上角顯示相對星期日前測的增減克數：增加用 +、減少用 −，單位為克；缺少有效起始或量測資料時保持空白。按「確定下載成果圖」完成合成，再選「存到本機」或「分享」。原圖為 2346 × 2682，不需螢幕截圖。</p><details><summary>完整名單</summary><ol id="roster" class="roster"></ol></details></dialog>
 <dialog id="cropDialog" aria-labelledby="cropTitle"><div class="dialog-head"><h2 id="cropTitle">選手照片・1:1 裁切</h2><button id="cancelCrop" type="button" class="secondary">取消</button></div><p id="cropPerson"></p><p class="photo-note">確認裁切後，還需按「儲存姓名與照片」才會上傳保存。照片初始完整置中；向左縮小、向右放大，拖曳可調位置。縮小後的空白會保留為白底。</p><label for="photoFile">選擇照片（JPEG、PNG、WebP，最大 10 MB）</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><p id="cropStatus" role="status" aria-live="polite"></p><canvas id="cropCanvas" class="crop-stage" width="720" height="720" aria-label="正方形裁切預覽，可拖曳照片；也可使用下方方向按鈕調整"></canvas><label for="cropZoom">縮小 ← 縮放 → 放大（<span id="cropZoomValue">100%</span>）</label><input id="cropZoom" type="range" min="0" max="100" step="1" value="50" disabled><div class="crop-controls"><button id="cropLeft" type="button" class="secondary" aria-label="照片向左移動" disabled>←</button><button id="cropUp" type="button" class="secondary" aria-label="照片向上移動" disabled>↑</button><button id="cropDown" type="button" class="secondary" aria-label="照片向下移動" disabled>↓</button><button id="cropRight" type="button" class="secondary" aria-label="照片向右移動" disabled>→</button><button id="resetCrop" type="button" class="secondary" disabled>重設位置</button><button id="confirmCrop" type="button" disabled>確認裁切</button></div></dialog>
-<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.7.5｜2026/10/17（台灣時間）</footer>
+<p class="version" id="bridgeVersion">橋接版本：尚未連線</p><footer class="version">InJoy 營養俱樂部｜1.7.6｜2026/10/17（台灣時間）</footer>
 </main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -114,7 +114,7 @@ let nextOffset=null,requestGeneration=0,workspaceRequest=0,reviewRequest=0,lastP
 let initPromise=null,bridge=null,bridgeSource=null,bridgeOrigin='',bridgeNonce='',bridgeReady=null,bridgeActions=null;
 const pending=new Map();
 const photoPreviews=new Map(),namePreviews=new Map(),savedPhotos=new Map(),profileRecords=new Map(),profileDraftVersions=new Map(),profileOperations=new Map(),photoRemovals=new Set();
-let profilesReady=false,activeRole='';
+let profilesReady=false,activeRole='',teamDirectoryRequest=0;
 let crop=null,photoLoadSequence=0;
 let timelinePages=null,timelineHeads=[],timelineOperations={};
 // Local snapshots contain server responses only; never tokens or unsaved inputs.
@@ -128,7 +128,7 @@ function cacheStore(mode,operation){return new Promise(resolve=>{
  }catch(_){finish(null);}
  });}
 function clearAccountCache(uid=identity?.userId){cacheEpoch++;if(uid)void cacheStore('readwrite',store=>store.delete(uid));}
-function validCachedPage(c,query,uid){return c&&c.version===1&&c.uid===uid&&c.lapId===currentDirectoryLap&&c.teamLapId===query.teamLapId&&c.date===query.measuredDate&&Date.now()-c.savedAt>=0&&Date.now()-c.savedAt<86400000&&c.page?.canManage===true&&c.page.timelineVersion==='1.0.0'&&c.page.slots?.length===9;}
+function validCachedPage(c,query,uid){return c&&c.version===1&&c.uid===uid&&c.lapId===currentDirectoryLap&&c.teamLapId===query.teamLapId&&c.date===query.measuredDate&&Date.now()-c.savedAt>=0&&Date.now()-c.savedAt<86400000&&c.page?.canManage===true&&c.page.executionRole===activeRole&&c.page.timelineVersion==='1.0.0'&&c.page.slots?.length===9;}
 function persistTeamCache(){
  if(cachedView||!profilesReady||!identity||!lastPage||lastPage.canManage!==true)return;
  const uid=identity.userId,epoch=cacheEpoch;
@@ -148,12 +148,12 @@ function adminMode(){return activeRole==='ADMIN'&&permissions?.isSuperAdmin;}
 function renderRoleButtons(){
  const roles=ownedRoles();if(!roles.includes(activeRole))activeRole=roles[0]||'';
  $('roles').replaceChildren();for(const role of roles){const button=document.createElement('button');button.type='button';button.className='role-switch';button.textContent=ROLE_LABELS[role];button.setAttribute('aria-pressed',String(activeRole===role));button.addEventListener('click',()=>switchExecutionRole(role));$('roles').appendChild(button);}
- if(!roles.length)$('roleStatus').textContent='尚無教練資格';else $('roleStatus').textContent='目前以「'+ROLE_LABELS[activeRole]+'」操作｜實心：使用中；空心：可切換';
+ $('roleStatus').textContent='';$('roleStatus').hidden=true;
  $('reviewCard').hidden=!adminMode();
 }
 async function switchExecutionRole(role){
- if(role===activeRole||!ownedRoles().includes(role)||authBusy||teamsBusy||pageBusy||saving||reviewBusy||applyBusy||managerBusy)return;
- if(changedRows().length||dirtyProfiles().length||managerDirty){busyText('roleStatus','請先儲存或捨棄未儲存的修改，再切換身分。');return;}
+ if(role===activeRole||!ownedRoles().includes(role)||authBusy||saving||reviewBusy||applyBusy||managerBusy)return;
+ if(changedRows().length||dirtyProfiles().length||managerDirty){$('roleStatus').hidden=false;busyText('roleStatus','請先儲存或捨棄未儲存的修改，再切換身分。');return;}
  managerClose(true);activeRole=role;renderRoleButtons();syncControls();
  if(hasWorkAccess())await loadTeams($('teamSelect').value);if(adminMode())await loadApplications(0);
 }
@@ -182,7 +182,7 @@ function syncControls(){
  $('saveProfiles').disabled=editingBlocked||lastPage?.canManage===false||!profilesReady||!dirtyProfiles().length;
  $('reloadApplications').disabled=authBusy||reviewBusy;$('nextPage').disabled=authBusy||reviewBusy;
  for(const button of $('applications').querySelectorAll('button'))button.disabled=authBusy||reviewBusy;
- for(const button of $('roles').querySelectorAll('button'))button.disabled=busy||reviewBusy||applyBusy||managerBusy;
+ for(const button of $('roles').querySelectorAll('button'))button.disabled=authBusy||saving||reviewBusy||applyBusy||managerBusy;
  updateAccountRail();
  $('teamCard').setAttribute('aria-busy',String(teamsBusy||pageBusy||saving));$('reviewCard').setAttribute('aria-busy',String(reviewBusy));
 }
@@ -220,9 +220,9 @@ function connectBridge(){
   bridge.src=url.href;document.body.appendChild(bridge);return promise;
 }
 async function callBackend(action,payload){
- const scopedActions=['measurementPage','saveMeasurements','saveEntryProfile','teamEditor','personSearch','createManagedTeam','saveManagedTeam'];
+ const scopedActions=['teamDirectory','entryPhotos','measurementPage','saveMeasurements','saveEntryProfile','teamEditor','personSearch','createManagedTeam','saveManagedTeam'];
  const requestedRole=activeRole,scoped=scopedActions.includes(action)&&!!requestedRole;
- if(scoped){payload={...payload};const field=action==='measurementPage'?'query':action==='entryPhotos'?null:'payload';if(field)payload[field]={...payload[field],executionRole:requestedRole};}
+ if(scoped){payload={...payload};const field=action==='measurementPage'?'query':['entryPhotos','teamDirectory'].includes(action)?null:'payload';if(field)payload[field]={...payload[field],executionRole:requestedRole};else payload.executionRole=requestedRole;}
 
   await connectBridge();
   if(['teamDirectory','measurementPage','saveMeasurements','coachApplicationState','entryPhotos','saveEntryProfile','teamEditor','personSearch','createManagedTeam','saveManagedTeam'].includes(action)&&(!bridgeActions||!bridgeActions.includes(action))){
@@ -238,14 +238,14 @@ async function callBackend(action,payload){
     if(action!=='login'&&action!=='logout'&&payload.sessionToken!==sessionToken){
       const err=new Error('登入狀態已改變，請重新登入。');err.code='SESSION_REQUIRED';throw err;
     }
-    if(scoped&&(data?.executionRole!==requestedRole||data?.roleScopeVersion!=='1.0'))throw Error('操作身分功能需要更新 InJoy_Administration.gs 並部署新版本。');
+    if(scoped&&(data?.executionRole!==requestedRole||data?.roleScopeVersion!=='1.0'))throw Error('操作身分功能需要更新 InJoy_Administration.gs、InJoy_TeamView.gs 與登入橋接，並部署新版本。');
     return data;
   });
 }
 let gridExportUrl='',gridExportGeneration=0,gridExportBusy=false,gridExportFile=null,gridShareBusy=false;
 function resetGridExport(){$('exportStepTwo').hidden=true;gridExportGeneration++;gridExportBusy=false;gridExportFile=null;gridShareBusy=false;$('sharePng').hidden=true;$('sharePng').disabled=false;if(gridExportUrl){URL.revokeObjectURL(gridExportUrl);gridExportUrl='';}$('gridComposite').hidden=true;$('gridComposite').removeAttribute?.('src');$('gridBackground').hidden=false;$('gridOverlay').removeAttribute?.('hidden');$('downloadPng').hidden=true;$('downloadPng').removeAttribute?.('href');$('exportGrid').disabled=false;busyText('exportStatus','');}
 function closeGrid(){resetGridExport();if($('gridDialog').open)$('gridDialog').close();$('gridOverlay').replaceChildren();$('roster').replaceChildren();}
-function clearWork(){cachedView=false;profilesReady=false;savedPhotos.clear();profileRecords.clear();timelinePages=null;timelineHeads=[];$('timelineTools').hidden=true;cancelPhotoCrop();requestGeneration++;lastPage=null;inputs=[];operationId='';closeGrid();$('entryPanel').hidden=true;$('measurementRows').replaceChildren();}
+function clearWork(){pageBusy=false;cachedView=false;profilesReady=false;savedPhotos.clear();profileRecords.clear();timelinePages=null;timelineHeads=[];$('timelineTools').hidden=true;cancelPhotoCrop();requestGeneration++;lastPage=null;inputs=[];operationId='';closeGrid();$('entryPanel').hidden=true;$('measurementRows').replaceChildren();}
 function hideAccount(){
  activeRole='';
  clearAccountCache();
@@ -262,7 +262,7 @@ function render(data){
  identity=data.identity;permissions=data.permissions;
  $('account').hidden=false;$('displayName').textContent=identity.displayName;$('userId').textContent='LINE userId：'+identity.userId;$('roles').replaceChildren();
  renderRoleButtons();
- $('access').textContent=hasWorkAccess()?'可選擇隊伍並登錄成績；表揚選取與正式輸出限當屆總監。':'可以申請成為教練，核准後才開放選手資料。';
+ $('access').textContent=hasWorkAccess()?'更新權限：重新確認後端資格；登出：結束本次登入。':'可以申請成為教練，核准後才開放選手資料。';
  $('teamCard').hidden=!hasWorkAccess();$('applyCard').hidden=hasWorkAccess();$('reviewCard').hidden=!adminMode();
  if(!hasWorkAccess()){clearAccountCache();clearWork();placeholder('尚未取得教練資格');}if(!permissions.isSuperAdmin)$('applications').replaceChildren();status('已登入');syncControls();
 }
@@ -318,17 +318,17 @@ async function applyCoach(){
 }
 function placeholder(text){const node=document.createElement('option');node.value='';node.textContent=text;$('teamSelect').replaceChildren(node);$('teamSelect').value='';}
 async function loadTeams(preferredTeamId=''){
- if(!hasWorkAccess())return;saveDraft();let previous=preferredTeamId||$('teamSelect').value;const token=sessionToken;let recentCache=null;void cacheStore('readonly',store=>store.get(identity?.userId)).then(c=>{recentCache=c;});
+ if(!hasWorkAccess())return;saveDraft();let previous=preferredTeamId||$('teamSelect').value;const token=sessionToken,directoryRequest=++teamDirectoryRequest;let recentCache=null;void cacheStore('readonly',store=>store.get(identity?.userId)).then(c=>{recentCache=c;});
  clearWork();const generation=requestGeneration;teamsBusy=true;placeholder('讀取小隊中…');syncControls();busyText('teamStatus','正在讀取當屆小隊…',true);
  try{const data=await callBackend('teamDirectory',{sessionToken:token});if(generation!==requestGeneration||token!==sessionToken)return;
   currentDirectoryLap=data?.lapId||'';if(!Array.isArray(data?.teams))throw new Error('小隊資料格式不正確。');$('teamSelect').replaceChildren();
   for(const team of data.teams){const option=document.createElement('option');option.value=team.teamLapId;option.textContent=team.teamName||'未命名小隊';$('teamSelect').appendChild(option);}
-  if(!data.teams.length){placeholder('當屆尚無小隊');busyText('teamStatus','當屆尚未設定小隊。');return;}
+  if(!data.teams.length){const empty=activeRole==='COACH'?'目前沒有管理的隊伍':'當屆尚未設定小隊';placeholder(empty);busyText('teamStatus',empty+'。');return;}
   if(!previous&&recentCache?.uid===identity?.userId&&recentCache.lapId===currentDirectoryLap&&Date.now()-recentCache.savedAt<86400000)previous=recentCache.teamLapId;
   $('teamSelect').value=data.teams.some(t=>t.teamLapId===previous)?previous:data.teams[0].teamLapId;
   await loadPage();
- }catch(err){if(token===sessionToken){placeholder('讀取失敗，請重試');handleError(err,'teamStatus');}}
- finally{if(token===sessionToken){teamsBusy=false;$('teamStatus').setAttribute('data-busy','false');syncControls();}}
+ }catch(err){if(directoryRequest===teamDirectoryRequest&&token===sessionToken){placeholder('讀取失敗，請重試');handleError(err,'teamStatus');}}
+ finally{if(directoryRequest===teamDirectoryRequest&&token===sessionToken){teamsBusy=false;$('teamStatus').setAttribute('data-busy','false');syncControls();}}
 }
 async function loadPage(discard=false){
  if(!hasWorkAccess()||!$('teamSelect').value)return;
@@ -341,7 +341,7 @@ async function loadPage(discard=false){
  if(!discard)void cacheStore('readonly',store=>store.get(uid)).then(c=>{if(!freshArrived&&seq===requestGeneration&&token===sessionToken&&validCachedPage(c,query,uid)){try{showCachedPage(c);}catch(_){clearWork();pageBusy=false;clearAccountCache();void loadPage(true);}}});syncControls();busyText('teamStatus','正在讀取名單與已存成績…',true);
  try{const data=await callBackend('measurementPage',{sessionToken:token,query});if(seq!==requestGeneration||token!==sessionToken)return;
   if(data?.teamLapId!==query.teamLapId||(data.timelineVersion!=='1.0.0')||!Array.isArray(data.slots)||data.slots.length!==9||data.slots.some((s,i)=>s.slotIndex!==i+1))throw new Error('成績頁面資料格式不正確，請重新讀取。');
-  freshArrived=true;cachedView=false;const allowedPhotoKeys=new Set(data.slots.filter(s=>s.occupied).map(s=>photoKey(data.teamLapId,s.entryId)));for(const key of savedPhotos.keys())if(!allowedPhotoKeys.has(key))savedPhotos.delete(key);lastPage=data;timelinePages=Array.isArray(data.timeline)&&data.timeline.length===11?data.timeline:null;timelineOperations={};for(const page of timelinePages||[])page.canManage=data.canManage;renderInputs();restoreDraft();persistTeamCache();void loadEntryProfiles(token,seq).then(()=>{if(seq===requestGeneration&&token===sessionToken){refreshPhotoInputs();persistTeamCache();}});$('calendarStatus').textContent=data.blockedReason||('起始量測：'+data.startMeasurementDate+'｜決賽量測：'+data.finishMeasurementDate);
+  freshArrived=true;cachedView=false;const allowedPhotoKeys=new Set(data.slots.filter(s=>s.occupied).map(s=>photoKey(data.teamLapId,s.entryId)));for(const key of savedPhotos.keys())if(!allowedPhotoKeys.has(key))savedPhotos.delete(key);lastPage=data;timelinePages=Array.isArray(data.timeline)&&data.timeline.length===11?data.timeline:null;timelineOperations={};for(const page of timelinePages||[]){page.canManage=data.canManage;page.executionRole=data.executionRole;page.roleScopeVersion=data.roleScopeVersion;}renderInputs();restoreDraft();persistTeamCache();void loadEntryProfiles(token,seq).then(()=>{if(seq===requestGeneration&&token===sessionToken){refreshPhotoInputs();persistTeamCache();}});$('calendarStatus').textContent=data.blockedReason||('起始量測：'+data.startMeasurementDate+'｜決賽量測：'+data.finishMeasurementDate);
   $('entryPanel').hidden=false;busyText('teamStatus','已載入 '+data.rosterCount+' 位參賽者，'+(9-data.rosterCount)+' 個空位。');busyText('saveStatus','');
  }catch(err){freshArrived=true;if(seq===requestGeneration&&token===sessionToken){if(err.code){clearAccountCache();clearWork();pageBusy=false;syncControls();}handleError(err,'teamStatus');if(cachedView)busyText('teamStatus','更新失敗，目前為本機舊資料，僅供查看；請重新讀取。');if(err.code==='COACH_REQUIRED'){$('teamCard').hidden=true;status('權限已變更，請重新確認權限。');}}}
  finally{if(seq===requestGeneration){pageBusy=false;$('teamStatus').setAttribute('data-busy','false');syncControls();updateTimeline();}}
@@ -632,25 +632,7 @@ function updateAccountRail(){
  $('accountNext').disabled=max<=2||rail.scrollLeft>=max-1;
 }
 function setupAccountRail(){
- const rail=$('accountRail');let drag=null,suppressClick=false;
- rail.addEventListener('pointerdown',e=>{
-  suppressClick=false;
-  if(e.pointerType!=='mouse'||e.button!==0||rail.scrollWidth<=rail.clientWidth||e.target.closest('button,a,input,select,textarea,summary,details,label,[contenteditable]'))return;
-  drag={id:e.pointerId,x:e.clientX,left:rail.scrollLeft,moved:false};
- });
- rail.addEventListener('pointermove',e=>{
-  if(!drag||e.pointerId!==drag.id)return;
-  const distance=e.clientX-drag.x;if(!drag.moved&&Math.abs(distance)<5)return;
-  if(!drag.moved){drag.moved=true;rail.setPointerCapture(e.pointerId);rail.setAttribute('data-dragging','true');}
-  e.preventDefault();rail.scrollLeft=drag.left-distance;updateAccountRail();
- });
- const end=e=>{
-  if(!drag||e.pointerId!==drag.id)return;
-  suppressClick=drag.moved;drag=null;rail.setAttribute('data-dragging','false');
-  if(rail.hasPointerCapture(e.pointerId))rail.releasePointerCapture(e.pointerId);updateAccountRail();
- };
- rail.addEventListener('pointerup',end);rail.addEventListener('pointercancel',end);
- rail.addEventListener('click',e=>{if(suppressClick){suppressClick=false;e.preventDefault();e.stopPropagation();}},true);
+ const rail=$('accountRail');
  rail.addEventListener('wheel',e=>{
   if(e.ctrlKey)return;
   const max=rail.scrollWidth-rail.clientWidth;if(max<=1)return;
